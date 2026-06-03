@@ -1,0 +1,836 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - La Nueva Comercial CESAR</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2360a5fa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M23.5 8.5 A 10.5 10.5 0 1 0 23.5 23.5' stroke='url(%23g)' stroke-width='4.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M21 11 A 7 7 0 1 0 21 21' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --blue-900: #0f1d3a;
+            --blue-800: #1a2f5a;
+            --blue-700: #2563eb;
+            --blue-600: #3b82f6;
+            --blue-500: #60a5fa;
+            --blue-400: #93c5fd;
+            --blue-100: #dbeafe;
+            --blue-50: #eff6ff;
+            --gray-900: #0b1120;
+            --gray-800: #1a2332;
+            --gray-700: #2d3748;
+            --gray-600: #4a5568;
+            --gray-500: #718096;
+            --gray-400: #a0aec0;
+            --gray-300: #cbd5e0;
+            --gray-200: #e2e8f0;
+            --gray-100: #edf2f7;
+            --gray-50: #f7fafc;
+            --green: #16a34a;
+            --green-bg: #f0fdf4;
+            --red: #dc2626;
+            --red-bg: #fef2f2;
+            --amber: #d97706;
+            --amber-bg: #fffbeb;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.07);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font);
+            background: #f1f5f9;
+            color: var(--gray-800);
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            min-height: 100vh;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #0b1120 0%, #162044 100%);
+            color: white; display: flex; flex-direction: column;
+            position: fixed; top: 0; left: 0; height: 100vh; z-index: 100;
+            transition: transform 0.3s;
+        }
+        .sidebar-brand {
+            padding: 28px 24px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .sidebar-brand .brand-logo {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 4px;
+        }
+        .sidebar-brand .brand-icon {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--blue-600), var(--blue-400));
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .sidebar-brand .brand-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2.2; }
+        .sidebar-brand h1 {
+            font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #fff, var(--blue-300));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .sidebar-brand .brand-sub {
+            font-size: 0.68rem; color: rgba(255,255,255,0.35); display: block;
+            margin-top: 2px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px;
+            padding-left: 50px;
+        }
+        .sidebar-nav { padding: 16px 0; flex: 1; overflow-y: auto; }
+        .sidebar-nav .nav-label {
+            font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.2px;
+            color: rgba(255,255,255,0.25); padding: 20px 24px 6px; font-weight: 700;
+        }
+        .sidebar-nav a {
+            display: flex; align-items: center; gap: 12px;
+            padding: 11px 24px; color: rgba(255,255,255,0.55); font-size: 0.83rem;
+            font-weight: 500; transition: all 0.2s;
+            border-left: 3px solid transparent; margin: 2px 12px; border-radius: 8px;
+        }
+        .sidebar-nav a:hover {
+            background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85);
+        }
+        .sidebar-nav a.active {
+            background: rgba(59,130,246,0.15); color: var(--blue-400);
+            border-left-color: var(--blue-500);
+        }
+        .sidebar-nav a svg {
+            width: 18px; height: 18px; flex-shrink: 0;
+            opacity: 0.7;
+        }
+        .sidebar-nav a.active svg { opacity: 1; }
+        .sidebar-footer {
+            padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.7rem; color: rgba(255,255,255,0.25); display: flex; align-items: center; gap: 8px;
+        }
+        .sidebar-footer .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
+
+        /* ===== MAIN ===== */
+        .main { margin-left: 260px; flex: 1; min-height: 100vh; }
+        .topbar {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 0 32px; height: 64px; display: flex; align-items: center;
+            justify-content: space-between; position: sticky; top: 0; z-index: 50;
+        }
+        .topbar h2 { font-size: 1rem; font-weight: 700; color: var(--gray-800); }
+        .topbar-right { display: flex; align-items: center; gap: 16px; }
+        .topbar-right .admin-badge {
+            font-size: 0.75rem; color: var(--gray-400); font-weight: 500;
+            padding: 4px 12px; background: var(--gray-100); border-radius: 50px;
+        }
+        .topbar-right .avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 0.8rem;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+        }
+        .menu-btn {
+            display: none; background: none; border: none; cursor: pointer;
+            padding: 4px; color: var(--gray-600);
+        }
+        .menu-btn svg { width: 22px; height: 22px; }
+
+        .content { padding: 28px 32px 60px; }
+
+        .page-section { display: none; animation: fadeIn 0.25s ease; }
+        .page-section.active { display: block; }
+
+        /* ===== WELCOME CARD ===== */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--gray-900), #162044);
+            border-radius: var(--radius); padding: 36px 40px; color: white;
+            box-shadow: 0 4px 24px rgba(11,17,32,0.25);
+        }
+        .welcome-card h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.3px; }
+        .welcome-card p { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin-top: 6px; line-height: 1.6; }
+        .welcome-card .info-row { display: flex; gap: 32px; margin-top: 20px; flex-wrap: wrap; }
+        .welcome-card .info-item { display: flex; align-items: center; gap: 10px; }
+        .welcome-card .info-item svg { width: 18px; height: 18px; stroke: var(--blue-400); fill: none; stroke-width: 2; }
+        .welcome-card .info-item span { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
+
+        /* ===== TABLE ===== */
+        .table-wrap {
+            background: white; border-radius: var(--radius); box-shadow: var(--shadow);
+            overflow: hidden; border: 1px solid rgba(0,0,0,0.04);
+        }
+        .table-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 22px; border-bottom: 1px solid var(--gray-100);
+        }
+        .table-header h3 { font-size: 0.92rem; font-weight: 700; color: var(--gray-800); }
+        .table-actions { display: flex; gap: 8px; align-items: center; }
+        .table-actions input[type="text"] {
+            padding: 7px 12px; border: 1.5px solid var(--gray-200); border-radius: 6px;
+            font-size: 0.8rem; font-family: var(--font); width: 180px;
+            transition: border-color 0.15s;
+        }
+        .table-actions input[type="text"]:focus { outline: none; border-color: var(--blue-500); }
+
+        .btn {
+            padding: 8px 18px; border-radius: 8px; font-size: 0.8rem;
+            font-weight: 600; border: none; cursor: pointer; transition: all 0.15s;
+            display: inline-flex; align-items: center; gap: 6px; font-family: var(--font);
+        }
+        .btn:hover { transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        .btn-primary { background: var(--blue-700); color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.2); }
+        .btn-primary:hover { background: #1d4ed8; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+        .btn-outline { background: transparent; border: 1.5px solid var(--gray-200); color: var(--gray-600); }
+        .btn-outline:hover { border-color: var(--blue-400); color: var(--blue-700); background: var(--blue-50); }
+        .btn-sm { padding: 5px 12px; font-size: 0.72rem; }
+        .btn-danger { background: var(--red); color: white; }
+        .btn-danger:hover { background: #b91c1c; }
+        .btn-amber { background: var(--amber); color: white; }
+        .btn-green { background: var(--green); color: white; }
+
+        table { width: 100%; border-collapse: collapse; }
+        table th {
+            text-align: left; padding: 11px 22px; font-size: 0.7rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--gray-500); background: var(--gray-50); border-bottom: 1px solid var(--gray-100);
+        }
+        table td {
+            padding: 13px 22px; font-size: 0.84rem; border-bottom: 1px solid var(--gray-50);
+            color: var(--gray-700);
+        }
+        table tr:last-child td { border-bottom: none; }
+        table tbody tr { transition: background 0.1s; }
+        table tbody tr:hover td { background: var(--blue-50); }
+        .badge {
+            display: inline-block; padding: 2px 10px; border-radius: 50px;
+            font-size: 0.68rem; font-weight: 600;
+        }
+        .badge-green { background: var(--green-bg); color: var(--green); }
+        .badge-red { background: var(--red-bg); color: var(--red); }
+        .badge-amber { background: var(--amber-bg); color: var(--amber); }
+        .badge-blue { background: var(--blue-50); color: var(--blue-700); }
+
+        /* ===== FORM ===== */
+        .form-card {
+            background: white; border-radius: var(--radius); box-shadow: var(--shadow);
+            padding: 28px; margin-bottom: 24px; border: 1px solid rgba(0,0,0,0.04);
+        }
+        .form-card h3 {
+            font-size: 0.92rem; font-weight: 700; margin-bottom: 20px;
+            padding-bottom: 16px; border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-800); display: flex; align-items: center; gap: 8px;
+        }
+        .form-card h3 svg { width: 18px; height: 18px; stroke: var(--blue-600); fill: none; stroke-width: 2; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { margin-bottom: 0; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            display: block; font-size: 0.78rem; font-weight: 600;
+            color: var(--gray-600); margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px 12px; border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm); font-size: 0.84rem; font-family: var(--font);
+            transition: border-color 0.15s, box-shadow 0.15s; background: white; color: var(--gray-800);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--blue-500); box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+
+        /* ===== CAROUSEL PREVIEW ===== */
+        .carousel-preview {
+            width: 100%; aspect-ratio: 2.09 / 1; border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--blue-800), var(--blue-600));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 600; font-size: 1.1rem;
+            margin-bottom: 16px; overflow: hidden; position: relative;
+        }
+        .carousel-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .upload-area {
+            border: 2px dashed var(--gray-300); border-radius: var(--radius-sm);
+            padding: 28px; text-align: center; cursor: pointer; transition: all 0.15s;
+        }
+        .upload-area:hover { border-color: var(--blue-400); background: var(--blue-50); }
+        .upload-area svg { width: 28px; height: 28px; stroke: var(--gray-400); margin-bottom: 6px; }
+        .upload-area p { font-size: 0.82rem; color: var(--gray-500); }
+        .upload-area small { font-size: 0.7rem; color: var(--gray-400); display: block; margin-top: 4px; }
+
+        /* ===== SEARCH RESULTS ===== */
+        .search-result-item {
+            padding: 9px 14px; cursor: pointer; font-size: 0.83rem;
+            border-bottom: 1px solid var(--gray-50); transition: background 0.1s;
+        }
+        .search-result-item:hover { background: var(--blue-50); }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-item small { color: var(--gray-400); margin-left: 8px; }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .main { margin-left: 0; }
+            .menu-btn { display: block; }
+            .topbar { padding: 0 16px; }
+            .content { padding: 20px 16px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .table-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .table-wrap { overflow-x: auto; }
+            .welcome-card { padding: 24px; }
+            .welcome-card .info-row { gap: 16px; }
+            .table-actions input[type="text"] { width: 140px; }
+        }
+        @media (max-width: 480px) {
+            .topbar h2 { font-size: 0.88rem; }
+            .topbar-right .admin-badge { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-logo">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="2.5"/>
+                        <line x1="2" y1="8" x2="22" y2="8"/>
+                        <rect x="17" y="3.5" width="2.5" height="3" rx="0.5"/>
+                    </svg>
+                </div>
+                <h1>Comercial CESAR</h1>
+            </div>
+            <span class="brand-sub">Panel de Administraci&oacute;n</span>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-label">General</div>
+            <a href="#" class="active" data-page="dashboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Dashboard
+            </a>
+            <div class="nav-label">Contenido</div>
+            <a href="#" data-page="products">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                Productos
+            </a>
+            <a href="#" data-page="carousel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 12l2 2 4-4"/></svg>
+                Carrusel
+            </a>
+            <a href="#" data-page="offers">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                Ofertas
+            </a>
+        </nav>
+        <div class="sidebar-footer"><span class="dot"></span> v1.0 &mdash; Panel Administrativo</div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <div class="main">
+        <div class="topbar">
+            <div style="display:flex;align-items:center;gap:12px">
+                <button class="menu-btn" id="menuBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+                <h2 id="pageTitle">Dashboard</h2>
+            </div>
+            <div class="topbar-right">
+                <span class="admin-badge">Administrador</span>
+                <div class="avatar">A</div>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <!-- ===== DASHBOARD ===== -->
+            <section class="page-section active" id="page-dashboard">
+                <div class="welcome-card">
+                    <h2>Bienvenido al Panel</h2>
+                    <p>Administra productos, banners del carrusel y ofertas especiales. Todos los cambios se guardan al conectar con Supabase.</p>
+                    <div class="info-row">
+                        <div class="info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                            <span>Productos: <strong id="dashProdCount" style="color:white">0</strong></span>
+                        </div>
+                        <div class="info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                            <span>Ofertas: <strong id="dashOfferCount" style="color:white">0</strong></span>
+                        </div>
+                        <div class="info-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 12l2 2 4-4"/></svg>
+                            <span>Banners: <strong id="dashBannerCount" style="color:white">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== PRODUCTOS ===== -->
+            <section class="page-section" id="page-products">
+                <div class="form-card">
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Agregar / Editar Producto</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nombre del Producto</label>
+                            <input type="text" id="prodName" placeholder="Ej: Nevera No Frost 18 pies">
+                        </div>
+                        <div class="form-group">
+                            <label>Categor&iacute;a</label>
+                            <select id="prodCategory">
+                                <option value="">Seleccionar...</option>
+                                <option value="electrodomesticos">Electrodom&eacute;sticos</option>
+                                <option value="celulares">Celulares</option>
+                                <option value="repuestos">Repuestos</option>
+                                <option value="plasticos">Pl&aacute;sticos</option>
+                                <option value="camas">Camas y Colchones</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio ($)</label>
+                            <input type="number" id="prodPrice" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group full">
+                            <label>Descripci&oacute;n</label>
+                            <textarea id="prodDesc" placeholder="Descripci&oacute;n del producto..."></textarea>
+                        </div>
+                        <div class="form-group full">
+                            <label>Especificaciones T&eacute;cnicas (una por l&iacute;nea, formato: clave|valor)</label>
+                            <textarea id="prodSpecs" placeholder="Ej:&#10;Capacidad|18 pies cÃºbicos&#10;Sistema|No Frost&#10;Eficiencia|A++"></textarea>
+                        </div>
+                        <div class="form-group full">
+                            <label>Imagen del Producto (ImgBB)</label>
+                            <div class="upload-area" onclick="document.getElementById('prodImageInput').click()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                <p>Haz clic para subir imagen</p>
+                                <small>Se subir&aacute; a ImgBB autom&aacute;ticamente</small>
+                                <input type="file" id="prodImageInput" accept="image/*" style="display:none">
+                            </div>
+                            <div id="prodImagePreview" style="display:none;margin-top:10px">
+                                <img src="" alt="Preview" style="max-height:120px;border-radius:6px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-outline" onclick="resetProductForm()">Cancelar</button>
+                        <button class="btn btn-primary" onclick="saveProduct()">Guardar Producto</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <div class="table-header">
+                        <h3>Todos los Productos</h3>
+                        <div class="table-actions">
+                            <input type="text" placeholder="Buscar..." style="padding:6px 12px;border:1.5px solid var(--gray-200);border-radius:6px;font-size:0.82rem;width:180px">
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr><th>Imagen</th><th>Nombre</th><th>Categor&iacute;a</th><th>Precio</th><th>Oferta</th><th>Acciones</th></tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <tr><td colspan="6" style="text-align:center;color:var(--gray-400);padding:32px">No hay productos registrados.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ===== CARRUSEL ===== -->
+            <section class="page-section" id="page-carousel">
+                <div class="form-card">
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 12l2 2 4-4"/></svg> Agregar Banner al Carrusel</h3>
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label>Vista Previa (proporci&oacute;n 2.09:1 igual que en la p&aacute;gina)</label>
+                            <div class="carousel-preview" id="bannerPreview">
+                                <span style="color:rgba(255,255,255,0.5);font-size:0.9rem">Vista previa del banner</span>
+                            </div>
+                        </div>
+                        <div class="form-group full">
+                            <label>Imagen del Banner</label>
+                            <div class="upload-area" onclick="document.getElementById('bannerInput').click()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                <p>Subir imagen del banner</p>
+                                <small>Se subir&aacute; a ImgBB autom&aacute;ticamente</small>
+                                <input type="file" id="bannerInput" accept="image/*" style="display:none">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ajuste de Imagen</label>
+                            <select id="bannerFit">
+                                <option value="cover">Cubrir (rellena todo, puede recortar)</option>
+                                <option value="contain">Contener (se ve completa, con bordes)</option>
+                                <option value="fill">Estirar (distorsiona)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Color de Fondo (fallback)</label>
+                            <input type="color" id="bannerBg" value="#1e3a8a" style="height:40px;padding:4px">
+                        </div>
+                        <div class="form-group">
+                            <label>Texto del Banner (opcional)</label>
+                            <input type="text" id="bannerText" placeholder="Ej: Ofertas de Temporada">
+                        </div>
+                        <div class="form-group">
+                            <label>Posici&oacute;n del Texto</label>
+                            <select id="bannerTextPos">
+                                <option value="center">Centrado</option>
+                                <option value="left">Izquierda</option>
+                                <option value="right">Derecha</option>
+                            </select>
+                        </div>
+                        <div class="form-group full">
+                            <label>Enlace (opcional)</label>
+                            <input type="text" id="bannerLink" placeholder="Ej: tienda.html?categoria=electrodomesticos">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-outline" onclick="resetBannerForm()">Restablecer</button>
+                        <button class="btn btn-primary" onclick="saveBanner()">Agregar Banner</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <div class="table-header">
+                        <h3>Banners del Carrusel</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr><th>Vista Previa</th><th>Texto</th><th>Enlace</th><th>Orden</th><th>Acciones</th></tr>
+                        </thead>
+                        <tbody id="bannersTableBody">
+                            <tr><td colspan="5" style="text-align:center;color:var(--gray-400);padding:32px">No hay banners a&uacute;n.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ===== OFERTAS ===== -->
+            <section class="page-section" id="page-offers">
+                <div class="form-card">
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg> Crear Oferta</h3>
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label>Buscar Producto</label>
+                            <input type="text" id="offerSearch" placeholder="Escribe para buscar un producto..." oninput="filterOfferProducts(this.value)">
+                            <div id="offerResults" style="margin-top:8px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);max-height:200px;overflow-y:auto;display:none"></div>
+                            <div id="offerSelected" style="display:none;margin-top:8px;padding:10px 14px;background:var(--blue-50);border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;color:var(--blue-700)"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio Original ($)</label>
+                            <input type="number" id="offerOriginal" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Precio de Oferta ($)</label>
+                            <input type="number" id="offerSale" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Descuento (%)</label>
+                            <input type="number" id="offerDiscount" placeholder="Autom&aacute;tico" min="1" max="99" readonly style="background:var(--gray-50)">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Expiraci&oacute;n</label>
+                            <input type="date" id="offerExpiry">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-outline" onclick="resetOfferForm()">Cancelar</button>
+                        <button class="btn btn-primary" onclick="saveOffer()">Activar Oferta</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <div class="table-header">
+                        <h3>Ofertas Activas</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr><th>Producto</th><th>Original</th><th>Oferta</th><th>Descuento</th><th>Expira</th><th>Acciones</th></tr>
+                        </thead>
+                        <tbody id="offersTableBody">
+                            <tr><td colspan="6" style="text-align:center;color:var(--gray-400);padding:32px">No hay ofertas activas.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+<script>
+    // ===== NAVEGACIÃ“N =====
+    var pageTitles = {
+        dashboard: 'Dashboard',
+        products: 'Gesti&oacute;n de Productos',
+        carousel: 'Carrusel de Banners',
+        offers: 'Ofertas'
+    };
+
+    function showPage(page) {
+        document.querySelectorAll('.sidebar-nav a').forEach(function(el) { el.classList.remove('active'); });
+        document.querySelectorAll('.page-section').forEach(function(el) { el.classList.remove('active'); });
+        var link = document.querySelector('.sidebar-nav a[data-page="' + page + '"]');
+        if (link) link.classList.add('active');
+        var section = document.getElementById('page-' + page);
+        if (section) section.classList.add('active');
+        document.getElementById('pageTitle').innerHTML = pageTitles[page] || page;
+    }
+
+    document.querySelectorAll('.sidebar-nav a[data-page]').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage(this.getAttribute('data-page'));
+        });
+    });
+
+    function resetProductForm() {
+        document.getElementById('prodName').value = '';
+        document.getElementById('prodCategory').value = '';
+        document.getElementById('prodPrice').value = '';
+        document.getElementById('prodDesc').value = '';
+        document.getElementById('prodSpecs').value = '';
+        document.getElementById('prodImagePreview').style.display = 'none';
+    }
+
+    function saveProduct() {
+        var name = document.getElementById('prodName').value.trim();
+        if (!name) { alert('El nombre del producto es obligatorio.'); return; }
+        var category = document.getElementById('prodCategory').value;
+        if (!category) { alert('Selecciona una categoría.'); return; }
+        var price = parseFloat(document.getElementById('prodPrice').value);
+        if (!price) { alert('Ingresa un precio válido.'); return; }
+        var desc = document.getElementById('prodDesc').value.trim();
+        var specsRaw = document.getElementById('prodSpecs').value.trim();
+        var specs = {};
+        if (specsRaw) {
+            specsRaw.split('\n').forEach(function(line) {
+                var parts = line.split('|');
+                if (parts.length === 2) specs[parts[0].trim()] = parts[1].trim();
+            });
+        }
+        var slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        var fileInput = document.getElementById('prodImageInput');
+        var file = fileInput.files ? fileInput.files[0] : null;
+
+        function insertProduct(imageUrl) {
+            if (!supabase) { alert('Supabase no está conectado.'); return; }
+            supabase.from('productos').insert({
+                id: slug,
+                name: name,
+                category: category,
+                price: price,
+                description: desc,
+                specs: specs,
+                image: imageUrl || ''
+            }).then(function(resp) {
+                if (resp.error) { alert('Error al guardar: ' + resp.error.message); return; }
+                alert('Producto guardado exitosamente.');
+                resetProductForm();
+                fileInput.value = '';
+            });
+        }
+
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var base64 = e.target.result.split(',')[1];
+                var formData = new FormData();
+                formData.append('image', base64);
+                fetch('https://api.imgbb.com/1/upload?key=1ed7e39db250edeafd135f8a5cdc053f', {
+                    method: 'POST',
+                    body: formData
+                }).then(function(r) { return r.json(); }).then(function(data) {
+                    if (data.success) {
+                        insertProduct(data.data.url);
+                    } else {
+                        alert('Error al subir imagen a ImgBB. El producto se guardará sin imagen.');
+                        insertProduct('');
+                    }
+                }).catch(function() {
+                    alert('Error de conexión con ImgBB. El producto se guardará sin imagen.');
+                    insertProduct('');
+                });
+            };
+            reader.readAsDataURL(file);
+        } else {
+            insertProduct('');
+        }
+    }
+
+    var mockProducts = [
+        { name: 'Nevera No Frost 18 pies', category: 'ElectrodomÃ©sticos', price: 500 },
+        { name: 'Lavadora 15 kg', category: 'ElectrodomÃ©sticos', price: 420 },
+        { name: 'Cocina 4 Hornillas', category: 'ElectrodomÃ©sticos', price: 380 },
+        { name: 'Aire Acondicionado 12000 BTU', category: 'ElectrodomÃ©sticos', price: 350 },
+        { name: 'Samsung Galaxy A54', category: 'Celulares', price: 320 },
+        { name: 'iPhone 13 128 GB', category: 'Celulares', price: 699 },
+        { name: 'Xiaomi Redmi Note 12', category: 'Celulares', price: 250 },
+        { name: 'Compresor NE6214', category: 'Repuestos', price: 95 },
+        { name: 'Termostato RefrigeraciÃ³n', category: 'Repuestos', price: 25 },
+        { name: 'Ventilador Evaporador', category: 'Repuestos', price: 35 },
+        { name: 'Filtro Secador', category: 'Repuestos', price: 12 },
+        { name: 'Mesa PlÃ¡stica 6 puestos', category: 'PlÃ¡sticos', price: 65 },
+        { name: 'Silla PlÃ¡stica Reforzada', category: 'PlÃ¡sticos', price: 28 },
+        { name: 'Cesto para Ropa 60L', category: 'PlÃ¡sticos', price: 18 },
+        { name: 'Organizador 3 niveles', category: 'PlÃ¡sticos', price: 22 },
+        { name: 'ColchÃ³n OrtopÃ©dico Queen', category: 'Camas y Colchones', price: 250 },
+        { name: 'Cama Queen Tapizada', category: 'Camas y Colchones', price: 320 },
+        { name: 'ColchÃ³n Resortes King', category: 'Camas y Colchones', price: 400 },
+        { name: 'Cama Litera MetÃ¡lica', category: 'Camas y Colchones', price: 280 }
+    ];
+    var selectedOfferProduct = null;
+
+    function filterOfferProducts(query) {
+        var container = document.getElementById('offerResults');
+        if (!query.trim()) { container.style.display = 'none'; return; }
+        var q = query.toLowerCase();
+        var matches = mockProducts.filter(function(p) {
+            return p.name.toLowerCase().indexOf(q) !== -1 || p.category.toLowerCase().indexOf(q) !== -1;
+        });
+        if (!matches.length) {
+            container.innerHTML = '<div style="padding:12px 14px;color:var(--gray-400);font-size:0.82rem">Sin resultados</div>';
+        } else {
+            container.innerHTML = matches.map(function(p) {
+                return '<div class="search-result-item" onclick="selectOfferProduct(\'' + p.name.replace(/'/g, "\\'") + '\',' + p.price + ')">' + p.name + ' <small>' + p.category + ' - $' + p.price + '</small></div>';
+            }).join('');
+        }
+        container.style.display = 'block';
+    }
+
+    function selectOfferProduct(name, price) {
+        selectedOfferProduct = name;
+        document.getElementById('offerSelected').innerHTML = 'Seleccionado: <strong>' + name + '</strong> <small style="font-weight:400;color:var(--gray-500)">- Precio original: $' + price + '</small>';
+        document.getElementById('offerSelected').style.display = 'block';
+        document.getElementById('offerOriginal').value = price;
+        document.getElementById('offerSearch').value = name;
+        document.getElementById('offerResults').style.display = 'none';
+        calcDiscount();
+    }
+
+    function calcDiscount() {
+        var orig = parseFloat(document.getElementById('offerOriginal').value) || 0;
+        var sale = parseFloat(document.getElementById('offerSale').value) || 0;
+        if (orig > 0 && sale > 0) {
+            var disc = Math.round((1 - sale / orig) * 100);
+            document.getElementById('offerDiscount').value = disc + '%';
+        } else {
+            document.getElementById('offerDiscount').value = '';
+        }
+    }
+
+    document.getElementById('offerOriginal').addEventListener('input', calcDiscount);
+    document.getElementById('offerSale').addEventListener('input', calcDiscount);
+
+    function resetOfferForm() {
+        selectedOfferProduct = null;
+        document.getElementById('offerSearch').value = '';
+        document.getElementById('offerOriginal').value = '';
+        document.getElementById('offerSale').value = '';
+        document.getElementById('offerDiscount').value = '';
+        document.getElementById('offerExpiry').value = '';
+        document.getElementById('offerSelected').style.display = 'none';
+        document.getElementById('offerResults').style.display = 'none';
+    }
+
+    function saveOffer() {
+        if (!selectedOfferProduct) { alert('Selecciona un producto primero.'); return; }
+        alert('Oferta activada para ' + selectedOfferProduct + '.\n\n(IntegraciÃ³n con Supabase pendiente)');
+        resetOfferForm();
+    }
+
+    // ===== CARRUSEL PREVIEW =====
+    function updateBannerPreview(src) {
+        var preview = document.getElementById('bannerPreview');
+        var fit = document.getElementById('bannerFit').value;
+        preview.innerHTML = '<img src="' + src + '" style="width:100%;height:100%;object-fit:' + fit + ';display:block">';
+        preview.style.background = document.getElementById('bannerBg').value;
+    }
+
+    function resetBannerForm() {
+        document.getElementById('bannerInput').value = '';
+        document.getElementById('bannerText').value = '';
+        document.getElementById('bannerLink').value = '';
+        document.getElementById('bannerFit').value = 'cover';
+        document.getElementById('bannerBg').value = '#1e3a8a';
+        var preview = document.getElementById('bannerPreview');
+        preview.innerHTML = '<span style="color:rgba(255,255,255,0.5);font-size:0.9rem">Vista previa del banner</span>';
+        preview.style.background = 'linear-gradient(135deg, var(--blue-800), var(--blue-600))';
+    }
+
+    // Preview de imagen subida
+    document.getElementById('prodImageInput').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(ev) {
+                var preview = document.getElementById('prodImagePreview');
+                preview.querySelector('img').src = ev.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('bannerInput').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            updateBannerPreview(ev.target.result);
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('bannerFit').addEventListener('change', function() {
+        var img = document.querySelector('#bannerPreview img');
+        if (img) img.style.objectFit = this.value;
+    });
+
+    document.getElementById('bannerBg').addEventListener('input', function() {
+        var preview = document.getElementById('bannerPreview');
+        preview.style.background = this.value;
+    });
+
+    document.getElementById('menuBtn').addEventListener('click', function() {
+        document.querySelector('.sidebar').classList.toggle('open');
+    });
+
+    document.querySelectorAll('.sidebar-nav a').forEach(function(el) {
+        el.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('open');
+        });
+    });
+
+    // ===== SUPABASE =====
+    var SUPABASE_URL = 'https://gcfysnlnprwbsagjmmhv.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjZnlzbmxwbnJ3YnNhZ2ptbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwMTc2ODIsImV4cCI6MjA5NTU5MzY4Mn0.-1JArChJhaL-aoO3dHZX5hkuufO0KoqYM_az-e7yDE8';
+
+    var supabase = null;
+    function initSupabase() {
+        try {
+            supabase = supabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('Supabase conectado');
+            return true;
+        } catch(e) {
+            console.error('Error al conectar Supabase:', e);
+            return false;
+        }
+    }
+    initSupabase();
+</script>
+
+</body>
+</html>
