@@ -607,7 +607,8 @@
     // ===== SUPABASE =====
     var SUPABASE_URL = 'https://gcfysnlnprwbsagjmmhv.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjZnlzbmxwbnJ3YnNhZ2ptbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwMTc2ODIsImV4cCI6MjA5NTU5MzY4Mn0.-1JArChJhaL-aoO3dHZX5hkuufO0KoqYM_az-e7yDE8';
-    var supabase = supabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var supabase = null;
+    try { supabase = supabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) { console.error('Supabase error:', e); }
 
     // ===== NAVEGACIÃ“N =====
     var pageTitles = {
@@ -636,19 +637,26 @@
 
     // ===== LOAD DASHBOARD COUNTS =====
     function loadDashboard() {
-        supabase.from('productos').select('id', { count: 'exact', head: true }).then(function(r) {
-            if (!r.error) document.getElementById('dashProdCount').textContent = r.count || 0;
+        if (!supabase) {
+            document.getElementById('dashProdCount').textContent = '0';
+            document.getElementById('dashOfferCount').textContent = '0';
+            document.getElementById('dashBannerCount').textContent = '0';
+            return;
+        }
+        supabase.from('productos').select('id').then(function(r) {
+            if (!r.error) document.getElementById('dashProdCount').textContent = (r.data || []).length;
         });
-        supabase.from('ofertas').select('id', { count: 'exact', head: true }).then(function(r) {
-            if (!r.error) document.getElementById('dashOfferCount').textContent = r.count || 0;
+        supabase.from('ofertas').select('id').then(function(r) {
+            if (!r.error) document.getElementById('dashOfferCount').textContent = (r.data || []).length;
         });
-        supabase.from('banners').select('id', { count: 'exact', head: true }).then(function(r) {
-            if (!r.error) document.getElementById('dashBannerCount').textContent = r.count || 0;
+        supabase.from('banners').select('id').then(function(r) {
+            if (!r.error) document.getElementById('dashBannerCount').textContent = (r.data || []).length;
         });
     }
 
     // ===== PRODUCTOS =====
     function loadProducts() {
+        if (!supabase) return;
         supabase.from('productos').select('*').then(function(resp) {
             var tbody = document.getElementById('productsTableBody');
             if (resp.error || !resp.data || !resp.data.length) {
@@ -664,6 +672,7 @@
 
     function deleteProduct(id) {
         if (!confirm('Â¿Eliminar este producto?')) return;
+        if (!supabase) return;
         supabase.from('productos').delete().eq('id', id).then(function(resp) {
             if (resp.error) { alert('Error: ' + resp.error.message); return; }
             loadProducts();
@@ -702,6 +711,7 @@
         var file = fileInput.files ? fileInput.files[0] : null;
 
         function insertProduct(imageUrl) {
+            if (!supabase) { alert('Supabase no estÃ¡ disponible.'); return; }
             supabase.from('productos').upsert({
                 id: slug,
                 name: name,
@@ -744,12 +754,14 @@
     var selectedOfferProduct = null;
 
     function loadOfferProducts() {
+        if (!supabase) return;
         supabase.from('productos').select('id,name,category,price').then(function(resp) {
             if (!resp.error) allProducts = resp.data || [];
         });
     }
 
     function loadOffers() {
+        if (!supabase) return;
         supabase.from('ofertas').select('*').then(function(resp) {
             var tbody = document.getElementById('offersTableBody');
             if (resp.error || !resp.data || !resp.data.length) {
@@ -765,6 +777,7 @@
 
     function deleteOffer(id) {
         if (!confirm('Â¿Eliminar esta oferta?')) return;
+        if (!supabase) return;
         supabase.from('ofertas').delete().eq('id', id).then(function(resp) {
             if (resp.error) { alert('Error: ' + resp.error.message); return; }
             loadOffers();
@@ -830,6 +843,7 @@
         if (!salePrice) { alert('Ingresa el precio de oferta.'); return; }
         var expiry = document.getElementById('offerExpiry').value;
         var offerId = 'offer_' + selectedOfferProduct.id + '_' + Date.now();
+        if (!supabase) { alert('Supabase no estÃ¡ disponible.'); return; }
         supabase.from('ofertas').upsert({
             id: offerId,
             product_id: selectedOfferProduct.id,
@@ -848,6 +862,7 @@
 
     // ===== CARRUSEL =====
     function loadBanners() {
+        if (!supabase) return;
         supabase.from('banners').select('*').then(function(resp) {
             var tbody = document.getElementById('bannersTableBody');
             if (resp.error || !resp.data || !resp.data.length) {
@@ -863,6 +878,7 @@
 
     function deleteBanner(id) {
         if (!confirm('Â¿Eliminar este banner?')) return;
+        if (!supabase) return;
         supabase.from('banners').delete().eq('id', id).then(function(resp) {
             if (resp.error) { alert('Error: ' + resp.error.message); return; }
             loadBanners();
@@ -904,6 +920,7 @@
             }).then(function(r) { return r.json(); }).then(function(data) {
                 if (!data.success) { alert('Error al subir imagen a ImgBB.'); return; }
                 var bannerId = 'banner_' + Date.now();
+                if (!supabase) { alert('Supabase no estÃ¡ disponible.'); return; }
                 supabase.from('banners').upsert({
                     id: bannerId,
                     image: data.data.url,
