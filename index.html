@@ -603,19 +603,12 @@
         </div>
     </div>
 
-<script>
+<script type="module">
     // ===== SUPABASE =====
-    var SUPABASE_URL = 'https://gcfysnlnprwbsagjmmhv.supabase.co';
-    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjZnlzbmxwbnJ3YnNhZ2ptbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwMTc2ODIsImV4cCI6MjA5NTU5MzY4Mn0.-1JArChJhaL-aoO3dHZX5hkuufO0KoqYM_az-e7yDE8';
-    var supabase = null;
-    window.addEventListener('load', function() {
-        try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e){}
-        loadDashboard(); loadProducts(); loadOfferProducts(); loadOffers(); loadBanners();
-        // Nav listeners
-        document.querySelectorAll('.sidebar-nav a[data-page]').forEach(function(el) {
-            el.addEventListener('click', function(e) { e.preventDefault(); showPage(this.getAttribute('data-page')); });
-        });
-    });
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+    const SUPABASE_URL = 'https://gcfysnlnprwbsagjmmhv.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_trJkNSp3EqAzOSqh_agchA_FEy6ZiOjGI';
+    var supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // ===== NAVEGACIÓN =====
     var pageTitles = {
@@ -993,6 +986,30 @@
             overlay.classList.remove('show');
         });
     });
+
+    // ===== INIT =====
+    loadDashboard();
+    loadProducts();
+    loadOfferProducts();
+    loadOffers();
+    loadBanners();
+    document.querySelectorAll('.sidebar-nav a[data-page]').forEach(function(el) {
+        el.addEventListener('click', function(e) { e.preventDefault(); showPage(this.getAttribute('data-page')); });
+    });
+
+    // Expose functions for onclick handlers
+    window.saveProduct = saveProduct;
+    window.deleteProduct = deleteProduct;
+    window.resetProductForm = resetProductForm;
+    window.saveOffer = saveOffer;
+    window.deleteOffer = deleteOffer;
+    window.filterOfferProducts = filterOfferProducts;
+    window.selectOfferProduct = selectOfferProduct;
+    window.calcDiscount = calcDiscount;
+    window.resetOfferForm = resetOfferForm;
+    window.saveBanner = saveBanner;
+    window.deleteBanner = deleteBanner;
+    window.resetBannerForm = resetBannerForm;
 
 </script>
 
