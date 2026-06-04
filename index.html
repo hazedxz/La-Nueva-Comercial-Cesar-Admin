@@ -604,12 +604,18 @@
     </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
     // ===== SUPABASE =====
     var SUPABASE_URL = 'https://gcfysnlnprwbsagjmmhv.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjZnlzbmxwbnJ3YnNhZ2ptbWh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwMTc2ODIsImV4cCI6MjA5NTU5MzY4Mn0.-1JArChJhaL-aoO3dHZX5hkuufO0KoqYM_az-e7yDE8';
     var supabase = null;
-   supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    window.addEventListener('load', function() {
+        try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e){}
+        loadDashboard(); loadProducts(); loadOfferProducts(); loadOffers(); loadBanners();
+        // Nav listeners
+        document.querySelectorAll('.sidebar-nav a[data-page]').forEach(function(el) {
+            el.addEventListener('click', function(e) { e.preventDefault(); showPage(this.getAttribute('data-page')); });
+        });
+    });
 
     // ===== NAVEGACIÓN =====
     var pageTitles = {
@@ -628,13 +634,6 @@
         if (section) section.classList.add('active');
         document.getElementById('pageTitle').innerHTML = pageTitles[page] || page;
     }
-
-    document.querySelectorAll('.sidebar-nav a[data-page]').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-            e.preventDefault();
-            showPage(this.getAttribute('data-page'));
-        });
-    });
 
     // ===== LOAD DASHBOARD COUNTS =====
     function loadDashboard() {
@@ -995,13 +994,6 @@
         });
     });
 
-    // ===== INIT =====
-    loadDashboard();
-    loadProducts();
-    loadOfferProducts();
-    loadOffers();
-    loadBanners();
-    }); // end DOMContentLoaded
 </script>
 
 </body>
