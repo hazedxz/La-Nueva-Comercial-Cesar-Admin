@@ -4,326 +4,300 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración - La Nueva Comercial CESAR</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2360a5fa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M23.5 8.5 A 10.5 10.5 0 1 0 23.5 23.5' stroke='url(%23g)' stroke-width='4.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M21 11 A 7 7 0 1 0 21 21' stroke='%2360a5fa' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%2360a5fa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M23.5 8.5 A 10.5 10.5 0 1 0 23.5 23.5' stroke='url(%23g)' stroke-width='4.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
         :root {
-            --blue-900: #0f1d3a;
-            --blue-800: #1a2f5a;
-            --blue-700: #2563eb;
-            --blue-600: #3b82f6;
-            --blue-500: #60a5fa;
-            --blue-400: #93c5fd;
-            --blue-100: #dbeafe;
-            --blue-50: #eff6ff;
-            --gray-900: #0b1120;
-            --gray-800: #1a2332;
-            --gray-700: #2d3748;
-            --gray-600: #4a5568;
-            --gray-500: #718096;
-            --gray-400: #a0aec0;
-            --gray-300: #cbd5e0;
-            --gray-200: #e2e8f0;
-            --gray-100: #edf2f7;
-            --gray-50: #f7fafc;
-            --green: #16a34a;
-            --green-bg: #f0fdf4;
-            --red: #dc2626;
-            --red-bg: #fef2f2;
-            --amber: #d97706;
-            --amber-bg: #fffbeb;
-            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --radius: 12px;
-            --radius-sm: 8px;
-            --shadow: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.07);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+            --ink:    #020b1c;
+            --b700:   #1d4ed8;
+            --b600:   #2563eb;
+            --b500:   #3b82f6;
+            --b400:   #60a5fa;
+            --b300:   #93c5fd;
+            --b50:    #eff6ff;
+            --n900:   #0f172a;
+            --n800:   #1e293b;
+            --n700:   #334155;
+            --n600:   #475569;
+            --n500:   #64748b;
+            --n400:   #94a3b8;
+            --n300:   #cbd5e1;
+            --n200:   #e2e8f0;
+            --n100:   #f1f5f9;
+            --n50:    #f8fafc;
+            --em:     #059669;
+            --em-bg:  #ecfdf5;
+            --re:     #dc2626;
+            --re-bg:  #fef2f2;
+            --am:     #d97706;
+            --am-bg:  #fffbeb;
+            --f:      'Plus Jakarta Sans', sans-serif;
+            --r:      12px;
+            --rsm:    8px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: var(--font);
-            background: #f1f5f9;
-            color: var(--gray-800);
-            -webkit-font-smoothing: antialiased;
-            display: flex;
-            min-height: 100vh;
-        }
+        body { font-family: var(--f); background: #e8eef8; color: var(--n800);
+               -webkit-font-smoothing: antialiased; display: flex; min-height: 100vh; }
         a { text-decoration: none; color: inherit; }
 
-        /* ===== SIDEBAR ===== */
+        
         .sidebar {
-            width: 260px;
-            background: linear-gradient(180deg, #0b1120 0%, #162044 100%);
-            color: white; display: flex; flex-direction: column;
+            width: 250px; background: var(--ink);
+            display: flex; flex-direction: column;
             position: fixed; top: 0; left: 0; height: 100vh; z-index: 100;
-            transition: transform 0.3s;
+            transition: transform .26s cubic-bezier(.4,0,.2,1);
+            border-right: 1px solid rgba(255,255,255,0.05);
         }
-        .sidebar-brand {
-            padding: 28px 24px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-        .sidebar-brand .brand-logo {
-            display: flex; align-items: center; gap: 12px; margin-bottom: 4px;
-        }
+        .sidebar-brand { padding: 22px 18px 18px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .sidebar-brand .brand-logo { display: flex; align-items: center; gap: 11px; }
         .sidebar-brand .brand-icon {
-            width: 38px; height: 38px;
-            background: linear-gradient(135deg, var(--blue-600), var(--blue-400));
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-        }
-        .sidebar-brand .brand-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2.2; }
-        .sidebar-brand h1 {
-            font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px;
-            background: linear-gradient(135deg, #fff, var(--blue-300));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .sidebar-brand .brand-sub {
-            font-size: 0.68rem; color: rgba(255,255,255,0.35); display: block;
-            margin-top: 2px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px;
-            padding-left: 50px;
-        }
-        .sidebar-nav { padding: 16px 0; flex: 1; overflow-y: auto; }
-        .sidebar-nav .nav-label {
-            font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.2px;
-            color: rgba(255,255,255,0.25); padding: 20px 24px 6px; font-weight: 700;
-        }
-        .sidebar-nav a {
-            display: flex; align-items: center; gap: 12px;
-            padding: 11px 24px; color: rgba(255,255,255,0.55); font-size: 0.83rem;
-            font-weight: 500; transition: all 0.2s;
-            border-left: 3px solid transparent; margin: 2px 12px; border-radius: 8px;
-        }
-        .sidebar-nav a:hover {
-            background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85);
-        }
-        .sidebar-nav a.active {
-            background: rgba(59,130,246,0.15); color: var(--blue-400);
-            border-left-color: var(--blue-500);
-        }
-        .sidebar-nav a svg {
-            width: 18px; height: 18px; flex-shrink: 0;
-            opacity: 0.7;
-        }
-        .sidebar-nav a.active svg { opacity: 1; }
-        .sidebar-footer {
-            padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06);
-            font-size: 0.7rem; color: rgba(255,255,255,0.25); display: flex; align-items: center; gap: 8px;
-        }
-        .sidebar-footer .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
-
-        /* ===== MAIN ===== */
-        .main { margin-left: 260px; flex: 1; min-height: 100vh; }
-        .topbar {
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            padding: 0 32px; height: 64px; display: flex; align-items: center;
-            justify-content: space-between; position: sticky; top: 0; z-index: 50;
-        }
-        .topbar h2 { font-size: 1rem; font-weight: 700; color: var(--gray-800); }
-        .topbar-right { display: flex; align-items: center; gap: 16px; }
-        .topbar-right .admin-badge {
-            font-size: 0.75rem; color: var(--gray-400); font-weight: 500;
-            padding: 4px 12px; background: var(--gray-100); border-radius: 50px;
-        }
-        .topbar-right .avatar {
-            width: 34px; height: 34px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--blue-700), var(--blue-500));
+            width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+            background: linear-gradient(145deg, #2563eb, #60a5fa);
             display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 700; font-size: 0.8rem;
-            box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+            box-shadow: 0 4px 14px rgba(37,99,235,0.45);
         }
-        .menu-btn {
-            display: none; background: none; border: none; cursor: pointer;
-            padding: 4px; color: var(--gray-600);
-        }
-        .menu-btn svg { width: 22px; height: 22px; }
+        .sidebar-brand .brand-icon svg { width: 16px; height: 16px; stroke: white; fill: none; stroke-width: 2.2; }
+        .sidebar-brand h1 { font-size: .92rem; font-weight: 800; color: white; letter-spacing: -.3px; }
+        .sidebar-brand .brand-sub { font-size: .58rem; color: rgba(255,255,255,0.22); font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: 5px; padding-left: 47px; }
+        .sidebar-nav { padding: 10px 7px; flex: 1; overflow-y: auto; }
+        .sidebar-nav::-webkit-scrollbar { width: 3px; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+        .nav-label { font-size: .56rem; text-transform: uppercase; letter-spacing: 1.4px;
+            color: rgba(255,255,255,0.14); padding: 14px 11px 5px; font-weight: 800; }
+        .sidebar-nav a { display: flex; align-items: center; gap: 9px; padding: 9px 11px;
+            color: rgba(255,255,255,0.38); font-size: .8rem; font-weight: 600;
+            transition: all .14s; border-radius: 8px; margin: 1px 0; position: relative; }
+        .sidebar-nav a:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+        .sidebar-nav a.active { background: rgba(37,99,235,0.18); color: #93c5fd; }
+        .sidebar-nav a.active::before { content: ''; position: absolute; left: 0; top: 22%; height: 56%;
+            width: 2.5px; background: #60a5fa; border-radius: 0 3px 3px 0; }
+        .sidebar-nav a svg { width: 15px; height: 15px; flex-shrink: 0; opacity: .55; }
+        .sidebar-nav a.active svg, .sidebar-nav a:hover svg { opacity: 1; }
+        .sidebar-footer { padding: 14px 18px; border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: .62rem; color: rgba(255,255,255,0.18); display: flex; align-items: center; gap: 7px; }
+        .sidebar-footer .dot { width: 6px; height: 6px; border-radius: 50%; background: #059669;
+            box-shadow: 0 0 8px rgba(5,150,105,0.75); flex-shrink: 0; }
 
-        .content { padding: 28px 32px 60px; }
+        
+        .main { margin-left: 250px; flex: 1; min-height: 100vh; }
+        .topbar { background: rgba(255,255,255,0.88); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.055); padding: 0 26px; height: 58px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 50; }
+        .topbar h2 { font-size: .9rem; font-weight: 800; color: var(--n900); letter-spacing: -.3px; }
+        .topbar-right { display: flex; align-items: center; gap: 9px; }
+        .admin-badge { font-size: .67rem; color: var(--n500); font-weight: 700;
+            padding: 4px 12px; background: var(--n100); border-radius: 50px; border: 1px solid var(--n200); }
+        .avatar { width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(145deg, #1d4ed8, #3b82f6);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: .74rem;
+            box-shadow: 0 4px 16px rgba(37,99,235,0.28); }
+        .menu-btn { display: none; background: none; border: none; cursor: pointer;
+            padding: 5px; color: var(--n500); border-radius: 6px; }
+        .menu-btn:hover { background: var(--n100); }
+        .menu-btn svg { width: 20px; height: 20px; }
 
-        .page-section { display: none; animation: fadeIn 0.25s ease; }
+        .content { padding: 22px 24px 60px; }
+        .page-section { display: none; animation: fadeIn .18s ease; }
         .page-section.active { display: block; }
 
-        /* ===== WELCOME CARD ===== */
+        
         .welcome-card {
-            background: linear-gradient(135deg, var(--gray-900), #162044);
-            border-radius: var(--radius); padding: 36px 40px; color: white;
-            box-shadow: 0 4px 24px rgba(11,17,32,0.25);
+            background: linear-gradient(128deg, #020b1c 0%, #0b1e50 55%, #112260 100%);
+            border-radius: var(--r); padding: 24px 28px; color: white;
+            box-shadow: 0 8px 36px rgba(2,11,28,0.36); margin-bottom: 14px;
+            position: relative; overflow: hidden;
         }
-        .welcome-card h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.3px; }
-        .welcome-card p { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin-top: 6px; line-height: 1.6; }
-        .welcome-card .info-row { display: flex; gap: 32px; margin-top: 20px; flex-wrap: wrap; }
-        .welcome-card .info-item { display: flex; align-items: center; gap: 10px; }
-        .welcome-card .info-item svg { width: 18px; height: 18px; stroke: var(--blue-400); fill: none; stroke-width: 2; }
-        .welcome-card .info-item span { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
+        .welcome-card::before { content: ''; position: absolute; top: -60px; right: -60px;
+            width: 260px; height: 260px; border-radius: 50%;
+            background: radial-gradient(circle,rgba(37,99,235,0.15) 0%,transparent 65%); }
+        .welcome-card h2 { font-size: 1.18rem; font-weight: 800; letter-spacing: -.4px; position: relative; }
+        .welcome-card p { color: rgba(255,255,255,0.4); font-size: .81rem; margin-top: 4px;
+            line-height: 1.6; max-width: 460px; position: relative; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 14px; }
+        .stat-card { background: white; border-radius: var(--r); padding: 17px 18px;
+            border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            display: flex; align-items: center; gap: 12px; transition: box-shadow .16s, transform .16s; }
+        .stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.09); transform: translateY(-1px); }
+        .stat-icon { width: 42px; height: 42px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .stat-icon svg { width: 18px; height: 18px; fill: none; stroke-width: 1.8;
+            stroke-linecap: round; stroke-linejoin: round; }
+        .stat-icon.blue { background: #eff6ff; } .stat-icon.blue svg { stroke: #2563eb; }
+        .stat-icon.green { background: #ecfdf5; } .stat-icon.green svg { stroke: #059669; }
+        .stat-icon.amber { background: #fffbeb; } .stat-icon.amber svg { stroke: #d97706; }
+        .stat-label { font-size: .64rem; color: var(--n400); font-weight: 700;
+            text-transform: uppercase; letter-spacing: .5px; }
+        .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--n900);
+            letter-spacing: -1px; line-height: 1; margin-top: 2px; }
 
-        /* ===== TABLE ===== */
-        .table-wrap {
-            background: white; border-radius: var(--radius); box-shadow: var(--shadow);
-            overflow: hidden; border: 1px solid rgba(0,0,0,0.04);
-        }
-        .table-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 18px 22px; border-bottom: 1px solid var(--gray-100);
-        }
-        .table-header h3 { font-size: 0.92rem; font-weight: 700; color: var(--gray-800); }
-        .table-actions { display: flex; gap: 8px; align-items: center; }
-        .table-actions input[type="text"] {
-            padding: 7px 12px; border: 1.5px solid var(--gray-200); border-radius: 6px;
-            font-size: 0.8rem; font-family: var(--font); width: 180px;
-            transition: border-color 0.15s;
-        }
-        .table-actions input[type="text"]:focus { outline: none; border-color: var(--blue-500); }
+        
+        .table-wrap { background: white; border-radius: var(--r);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05); }
+        .table-header { display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 18px; border-bottom: 1px solid var(--n100); }
+        .table-header h3 { font-size: .84rem; font-weight: 800; color: var(--n900); letter-spacing: -.2px; }
+        .table-actions { display: flex; gap: 7px; align-items: center; }
+        .table-actions input[type="text"] { padding: 6px 11px; border: 1.5px solid var(--n200);
+            border-radius: 7px; font-size: .77rem; font-family: var(--f); width: 175px;
+            background: var(--n50); transition: all .13s; }
+        .table-actions input[type="text"]:focus { outline: none; border-color: #60a5fa;
+            background: white; box-shadow: 0 0 0 3px rgba(59,130,246,0.09); }
 
-        .btn {
-            padding: 8px 18px; border-radius: 8px; font-size: 0.8rem;
-            font-weight: 600; border: none; cursor: pointer; transition: all 0.15s;
-            display: inline-flex; align-items: center; gap: 6px; font-family: var(--font);
-        }
+        
+        .btn { padding: 8px 16px; border-radius: 8px; font-size: .77rem; font-weight: 700;
+            border: none; cursor: pointer; transition: all .13s;
+            display: inline-flex; align-items: center; gap: 5px; font-family: var(--f); }
         .btn:hover { transform: translateY(-1px); }
         .btn:active { transform: translateY(0); }
-        .btn-primary { background: var(--blue-700); color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.2); }
-        .btn-primary:hover { background: #1d4ed8; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
-        .btn-outline { background: transparent; border: 1.5px solid var(--gray-200); color: var(--gray-600); }
-        .btn-outline:hover { border-color: var(--blue-400); color: var(--blue-700); background: var(--blue-50); }
-        .btn-sm { padding: 5px 12px; font-size: 0.72rem; }
-        .btn-danger { background: var(--red); color: white; }
-        .btn-danger:hover { background: #b91c1c; }
-        .btn-amber { background: var(--amber); color: white; }
-        .btn-green { background: var(--green); color: white; }
+        .btn-primary { background: #2563eb; color: white; box-shadow: 0 2px 10px rgba(37,99,235,0.24); }
+        .btn-primary:hover { background: #1d4ed8; box-shadow: 0 4px 16px rgba(37,99,235,0.35); }
+        .btn-outline { background: white; border: 1.5px solid var(--n200); color: var(--n600); }
+        .btn-outline:hover { border-color: #93c5fd; color: #1d4ed8; background: #eff6ff; }
+        .btn-sm { padding: 4px 10px; font-size: .68rem; border-radius: 6px; }
+        .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid rgba(220,38,38,0.11); }
+        .btn-danger:hover { background: #dc2626; color: white; }
+        .btn-amber { background: #d97706; color: white; }
+        .btn-green { background: #059669; color: white; }
 
         table { width: 100%; border-collapse: collapse; }
-        table th {
-            text-align: left; padding: 11px 22px; font-size: 0.7rem;
-            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
-            color: var(--gray-500); background: var(--gray-50); border-bottom: 1px solid var(--gray-100);
-        }
-        table td {
-            padding: 13px 22px; font-size: 0.84rem; border-bottom: 1px solid var(--gray-50);
-            color: var(--gray-700);
-        }
+        table th { text-align: left; padding: 9px 18px; font-size: .63rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: .6px; color: var(--n400);
+            background: var(--n50); border-bottom: 1px solid var(--n100); }
+        table td { padding: 11px 18px; font-size: .81rem;
+            border-bottom: 1px solid rgba(0,0,0,0.03); color: var(--n700); }
         table tr:last-child td { border-bottom: none; }
-        table tbody tr { transition: background 0.1s; }
-        table tbody tr:hover td { background: var(--blue-50); }
-        .badge {
-            display: inline-block; padding: 2px 10px; border-radius: 50px;
-            font-size: 0.68rem; font-weight: 600;
-        }
-        .badge-green { background: var(--green-bg); color: var(--green); }
-        .badge-red { background: var(--red-bg); color: var(--red); }
-        .badge-amber { background: var(--amber-bg); color: var(--amber); }
-        .badge-blue { background: var(--blue-50); color: var(--blue-700); }
+        table tbody tr { transition: background .1s; }
+        table tbody tr:hover td { background: #f5f8ff; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 50px;
+            font-size: .63rem; font-weight: 700; }
+        .badge-green { background: #ecfdf5; color: #059669; }
+        .badge-red   { background: #fef2f2; color: #dc2626; }
+        .badge-amber { background: #fffbeb; color: #d97706; }
+        .badge-blue  { background: #eff6ff; color: #1d4ed8; }
 
-        /* ===== FORM ===== */
-        .form-card {
-            background: white; border-radius: var(--radius); box-shadow: var(--shadow);
-            padding: 28px; margin-bottom: 24px; border: 1px solid rgba(0,0,0,0.04);
-        }
-        .form-card h3 {
-            font-size: 0.92rem; font-weight: 700; margin-bottom: 20px;
-            padding-bottom: 16px; border-bottom: 1px solid var(--gray-100);
-            color: var(--gray-800); display: flex; align-items: center; gap: 8px;
-        }
-        .form-card h3 svg { width: 18px; height: 18px; stroke: var(--blue-600); fill: none; stroke-width: 2; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        
+        .form-card { background: white; border-radius: var(--r);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 22px 24px; margin-bottom: 14px; border: 1px solid rgba(0,0,0,0.05); }
+        .form-card h3 { font-size: .84rem; font-weight: 800; margin-bottom: 18px;
+            padding-bottom: 12px; border-bottom: 1px solid var(--n100);
+            color: var(--n900); display: flex; align-items: center; gap: 7px; }
+        .form-card h3 svg { width: 15px; height: 15px; stroke: #3b82f6; fill: none; stroke-width: 2; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
         .form-group { margin-bottom: 0; }
         .form-group.full { grid-column: 1 / -1; }
-        .form-group label {
-            display: block; font-size: 0.78rem; font-weight: 600;
-            color: var(--gray-600); margin-bottom: 5px;
-        }
+        .form-group label { display: block; font-size: .69rem; font-weight: 700; color: var(--n500);
+            margin-bottom: 5px; text-transform: uppercase; letter-spacing: .4px; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 10px 12px; border: 1.5px solid var(--gray-200);
-            border-radius: var(--radius-sm); font-size: 0.84rem; font-family: var(--font);
-            transition: border-color 0.15s, box-shadow 0.15s; background: white; color: var(--gray-800);
-        }
+            width: 100%; padding: 8px 11px; border: 1.5px solid var(--n200);
+            border-radius: var(--rsm); font-size: .82rem; font-family: var(--f);
+            transition: all .13s; background: var(--n50); color: var(--n800); }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none; border-color: var(--blue-500); box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-        }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-        .form-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+            outline: none; border-color: #60a5fa; background: white;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.09); }
+        .form-group textarea { resize: vertical; min-height: 82px; }
+        .form-actions { display: flex; gap: 8px; justify-content: flex-end;
+            margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--n100); }
 
-        /* ===== CAROUSEL PREVIEW ===== */
-        .carousel-preview {
-            width: 100%; aspect-ratio: 2.09 / 1; border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--blue-800), var(--blue-600));
+        
+        .carousel-preview { width: 100%; aspect-ratio: 16/7; border-radius: var(--rsm);
+            background: linear-gradient(135deg, #020b1c 0%, #1a3a8f 100%);
             display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 600; font-size: 1.1rem;
-            margin-bottom: 16px; overflow: hidden; position: relative;
-        }
+            color: rgba(255,255,255,0.3); font-size: .78rem; font-weight: 600;
+            margin-bottom: 12px; overflow: hidden; }
         .carousel-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .upload-area {
-            border: 2px dashed var(--gray-300); border-radius: var(--radius-sm);
-            padding: 28px; text-align: center; cursor: pointer; transition: all 0.15s;
-        }
-        .upload-area:hover { border-color: var(--blue-400); background: var(--blue-50); }
-        .upload-area svg { width: 28px; height: 28px; stroke: var(--gray-400); margin-bottom: 6px; }
-        .upload-area p { font-size: 0.82rem; color: var(--gray-500); }
-        .upload-area small { font-size: 0.7rem; color: var(--gray-400); display: block; margin-top: 4px; }
 
-        /* ===== SEARCH RESULTS ===== */
-        .search-result-item {
-            padding: 9px 14px; cursor: pointer; font-size: 0.83rem;
-            border-bottom: 1px solid var(--gray-50); transition: background 0.1s;
-        }
-        .search-result-item:hover { background: var(--blue-50); }
+        
+        .upload-area { border: 2px dashed var(--n200); border-radius: var(--rsm); padding: 26px;
+            text-align: center; cursor: pointer; transition: all .15s; background: var(--n50); }
+        .upload-area:hover { border-color: #60a5fa; background: #eff6ff; }
+        .upload-area svg { width: 24px; height: 24px; stroke: var(--n300); margin-bottom: 7px; }
+        .upload-area p { font-size: .79rem; color: var(--n500); font-weight: 600; }
+        .upload-area small { font-size: .67rem; color: var(--n400); display: block; margin-top: 3px; }
+
+        
+        .link-toggle { display: flex; background: var(--n100); border-radius: 9px;
+            padding: 3px; gap: 3px; margin-bottom: 10px; }
+        .link-tab { flex: 1; padding: 7px 10px; font-size: .73rem; font-weight: 700;
+            font-family: var(--f); background: none; border: none; cursor: pointer;
+            color: var(--n500); transition: all .15s; border-radius: 7px;
+            display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .link-tab svg { width: 12px; height: 12px; fill: none; stroke: currentColor;
+            stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .link-tab.active { background: white; color: #1d4ed8;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.09); }
+        .link-tab:hover:not(.active) { background: rgba(255,255,255,0.6); color: var(--n700); }
+        .link-panel { display: none; }
+        .link-panel.active { display: block; }
+
+        
+        .bp-wrap { position: relative; }
+        .bp-wrap input { padding-right: 36px; }
+        .bp-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; cursor: pointer; padding: 3px;
+            color: var(--n400); border-radius: 5px; }
+        .bp-btn:hover { color: #2563eb; }
+        .bp-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor;
+            stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; display: block; }
+        .bp-results { background: white; border: 1.5px solid var(--n200);
+            border-radius: var(--rsm); margin-top: 5px; max-height: 200px; overflow-y: auto;
+            display: none; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .bp-item { padding: 9px 12px; cursor: pointer; display: flex; align-items: center;
+            gap: 9px; border-bottom: 1px solid var(--n50); transition: background .1s; }
+        .bp-item:hover { background: #eff6ff; }
+        .bp-item:last-child { border-bottom: none; }
+        .bp-item img { width: 30px; height: 30px; object-fit: cover; border-radius: 5px; flex-shrink: 0; }
+        .bp-item-noimg { width: 30px; height: 30px; background: #eff6ff;
+            border-radius: 5px; flex-shrink: 0; }
+        .bp-item-name { font-size: .8rem; font-weight: 600; color: var(--n800); }
+        .bp-item-price { font-size: .7rem; color: var(--n400); margin-top: 1px; }
+        .bp-empty { padding: 12px 14px; color: var(--n400); font-size: .8rem; text-align: center; }
+        .bp-tag { display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px;
+            background: #eff6ff; border: 1.5px solid #93c5fd; border-radius: 7px;
+            font-size: .77rem; font-weight: 700; color: #1d4ed8; margin-top: 6px; }
+        .bp-tag button { background: none; border: none; cursor: pointer;
+            color: #93c5fd; padding: 0; display: flex; }
+        .bp-tag button:hover { color: #dc2626; }
+        .bp-tag button svg { width: 13px; height: 13px; fill: none; stroke: currentColor;
+            stroke-width: 2.5; stroke-linecap: round; }
+
+        
+        .search-result-item { padding: 9px 13px; cursor: pointer; font-size: .8rem;
+            border-bottom: 1px solid var(--n50); transition: background .1s; }
+        .search-result-item:hover { background: #eff6ff; color: #1d4ed8; }
         .search-result-item:last-child { border-bottom: none; }
-        .search-result-item small { color: var(--gray-400); margin-left: 8px; }
+        .search-result-item small { color: var(--n400); margin-left: 6px; }
 
-        /* ===== ANIMACIONES ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== OVERLAY ===== */
-        .sidebar-overlay {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4);
-            z-index: 99;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+        .sidebar-overlay { display: none; position: fixed; inset: 0;
+            background: rgba(2,11,28,0.65); z-index: 99; backdrop-filter: blur(3px); }
         .sidebar-overlay.show { display: block; }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .sidebar-overlay.show { display: block; }
             .sidebar { transform: translateX(-100%); }
             .sidebar.open { transform: translateX(0); }
             .main { margin-left: 0; }
             .menu-btn { display: block; }
-            .topbar { padding: 0 16px; }
-            .content { padding: 20px 16px; }
+            .topbar { padding: 0 13px; }
+            .content { padding: 14px 11px; }
             .form-grid { grid-template-columns: 1fr; }
-            .table-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .table-header { flex-direction: column; gap: 8px; align-items: flex-start; }
             .table-wrap { overflow-x: auto; }
-            .welcome-card { padding: 24px; }
-            .welcome-card .info-row { gap: 16px; }
-            .form-card { padding: 20px; }
-            table th, table td { padding: 10px 14px; font-size: 0.78rem; }
-            .table-header { padding: 14px 16px; }
-            .table-actions { width: 100%; }
-            .table-actions input[type="text"] { width: 100%; }
-            .upload-area { padding: 20px 16px; }
-            .welcome-card .info-row { flex-direction: column; gap: 8px; }
+            .welcome-card { padding: 18px 20px; }
+            .form-card { padding: 16px; }
+            table th, table td { padding: 8px 11px; font-size: .75rem; }
+            .stats-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
-            .sidebar-overlay.show { display: block; }
-            .topbar h2 { font-size: 0.85rem; }
-            .topbar-right .admin-badge { display: none; }
-            .sidebar-brand { padding: 20px 16px 18px; }
-            .sidebar-brand .brand-sub { padding-left: 0; }
-            .sidebar-nav a { padding: 10px 16px; margin: 1px 8px; font-size: 0.8rem; }
-            .welcome-card { padding: 20px; }
-            .welcome-card h2 { font-size: 1.1rem; }
-            .form-card { padding: 16px; }
-            .form-card h3 { font-size: 0.85rem; }
-            table th, table td { padding: 8px 10px; font-size: 0.72rem; }
-            .table-header { padding: 12px 14px; flex-direction: column; gap: 8px; }
-            .table-header h3 { font-size: 0.82rem; }
-            .content { padding: 16px 12px; }
-            .btn { padding: 6px 14px; font-size: 0.75rem; }
-            .sidebar { width: 240px; }
+            .admin-badge { display: none; }
+            .btn { padding: 7px 12px; font-size: .74rem; }
+            .sidebar { width: 242px; }
             .form-actions { flex-direction: column; }
             .form-actions .btn { width: 100%; justify-content: center; }
         }
@@ -331,15 +305,14 @@
 </head>
 <body>
 
-    <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
             <div class="brand-logo">
                 <div class="brand-icon">
-                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="2.5"/>
-                        <line x1="2" y1="8" x2="22" y2="8"/>
-                        <rect x="17" y="3.5" width="2.5" height="3" rx="0.5"/>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="18" rx="2.5"/>
+                        <line x1="2" y1="9" x2="22" y2="9"/>
+                        <line x1="8" y1="3" x2="8" y2="9"/>
                     </svg>
                 </div>
                 <h1>Comercial CESAR</h1>
@@ -358,7 +331,7 @@
                 Productos
             </a>
             <a href="#" data-page="carousel">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 12l2 2 4-4"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="9 10 12 7 15 10"/><line x1="12" y1="7" x2="12" y2="17"/></svg>
                 Carrusel
             </a>
             <a href="#" data-page="offers">
@@ -369,10 +342,8 @@
         <div class="sidebar-footer"><span class="dot"></span> v1.0 — Panel Administrativo</div>
     </aside>
 
-    <!-- ===== OVERLAY (mobile) ===== -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- ===== MAIN ===== -->
     <div class="main">
         <div class="topbar">
             <div style="display:flex;align-items:center;gap:12px">
@@ -389,32 +360,50 @@
 
         <div class="content">
 
-            <!-- ===== DASHBOARD ===== -->
+            
             <section class="page-section active" id="page-dashboard">
                 <div class="welcome-card">
-                    <h2>Bienvenido al Panel</h2>
-                    <p>Administra productos, banners del carrusel y ofertas especiales. Todos los cambios se guardan al conectar con Supabase.</p>
-                    <div class="info-row">
-                        <div class="info-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            <span>Productos: <strong id="dashProdCount" style="color:white">0</strong></span>
+                    <h2>Panel de Administración</h2>
+                    <p>Gestiona productos, banners y ofertas. Los cambios se sincronizan automáticamente con Supabase.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                         </div>
-                        <div class="info-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
-                            <span>Ofertas: <strong id="dashOfferCount" style="color:white">0</strong></span>
+                        <div>
+                            <div class="stat-label">Productos</div>
+                            <div class="stat-value" id="dashProdCount">0</div>
                         </div>
-                        <div class="info-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 12l2 2 4-4"/></svg>
-                            <span>Banners: <strong id="dashBannerCount" style="color:white">0</strong></span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                        </div>
+                        <div>
+                            <div class="stat-label">Ofertas</div>
+                            <div class="stat-value" id="dashOfferCount">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon amber">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 2v4M16 2v4"/></svg>
+                        </div>
+                        <div>
+                            <div class="stat-label">Banners</div>
+                            <div class="stat-value" id="dashBannerCount">0</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ===== PRODUCTOS ===== -->
+            
             <section class="page-section" id="page-products">
                 <div class="form-card">
-                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Agregar / Editar Producto</h3>
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        Agregar / Editar Producto
+                    </h3>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Nombre del Producto</label>
@@ -441,10 +430,10 @@
                         </div>
                         <div class="form-group full">
                             <label>Especificaciones Técnicas (una por línea, formato: clave|valor)</label>
-                            <textarea id="prodSpecs" placeholder="Ej:&#10;Capacidad|18 pies cúbicos&#10;Sistema|No Frost&#10;Eficiencia|A++"></textarea>
+                            <textarea id="prodSpecs" placeholder="Capacidad|18 pies cúbicos&#10;Sistema|No Frost&#10;Eficiencia|A++"></textarea>
                         </div>
                         <div class="form-group full">
-                            <label>Imagen del Producto (ImgBB)</label>
+                            <label>Imagen del Producto</label>
                             <div class="upload-area" onclick="document.getElementById('prodImageInput').click()">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                                 <p>Haz clic para subir imagen</p>
@@ -461,12 +450,11 @@
                         <button class="btn btn-primary" onclick="saveProduct()">Guardar Producto</button>
                     </div>
                 </div>
-
                 <div class="table-wrap">
                     <div class="table-header">
                         <h3>Todos los Productos</h3>
                         <div class="table-actions">
-                            <input type="text" placeholder="Buscar..." style="padding:6px 12px;border:1.5px solid var(--gray-200);border-radius:6px;font-size:0.82rem;width:180px">
+                            <input type="text" placeholder="Buscar...">
                         </div>
                     </div>
                     <table>
@@ -474,59 +462,72 @@
                             <tr><th>Imagen</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Oferta</th><th>Acciones</th></tr>
                         </thead>
                         <tbody id="productsTableBody">
-                            <tr><td colspan="6" style="text-align:center;color:var(--gray-400);padding:32px">No hay productos registrados.</td></tr>
+                            <tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:32px">No hay productos registrados.</td></tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- ===== CARRUSEL ===== -->
+            
             <section class="page-section" id="page-carousel">
                 <div class="form-card">
-                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 12l2 2 4-4"/></svg> Agregar Banner al Carrusel</h3>
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="9 10 12 7 15 10"/><line x1="12" y1="7" x2="12" y2="17"/></svg>
+                        Agregar Banner al Carrusel
+                    </h3>
                     <div class="form-grid">
                         <div class="form-group full">
-                            <label>Vista Previa (proporción 2.09:1 igual que en la página)</label>
+                            <label>Vista Previa — proporción 16:7</label>
                             <div class="carousel-preview" id="bannerPreview">
-                                <span style="color:rgba(255,255,255,0.5);font-size:0.9rem">Vista previa del banner</span>
+                                <span>La imagen aparecerá aquí</span>
                             </div>
                         </div>
                         <div class="form-group full">
                             <label>Imagen del Banner</label>
                             <div class="upload-area" onclick="document.getElementById('bannerInput').click()">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                                <p>Subir imagen del banner</p>
-                                <small>Se subirá a ImgBB automáticamente</small>
+                                <p>Haz clic para subir imagen</p>
+                                <small>Se sube a ImgBB automáticamente</small>
                                 <input type="file" id="bannerInput" accept="image/*" style="display:none">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Ajuste de Imagen</label>
                             <select id="bannerFit">
-                                <option value="cover">Cubrir (rellena todo, puede recortar)</option>
-                                <option value="contain">Contener (se ve completa, con bordes)</option>
-                                <option value="fill">Estirar (distorsiona)</option>
+                                <option value="cover">Cubrir (rellena, puede recortar)</option>
+                                <option value="contain">Contener (imagen completa)</option>
+                                <option value="fill">Estirar</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Color de Fondo (fallback)</label>
-                            <input type="color" id="bannerBg" value="#1e3a8a" style="height:40px;padding:4px">
-                        </div>
-                        <div class="form-group">
-                            <label>Texto del Banner (opcional)</label>
-                            <input type="text" id="bannerText" placeholder="Ej: Ofertas de Temporada">
-                        </div>
-                        <div class="form-group">
-                            <label>Posición del Texto</label>
-                            <select id="bannerTextPos">
-                                <option value="center">Centrado</option>
-                                <option value="left">Izquierda</option>
-                                <option value="right">Derecha</option>
-                            </select>
+                            <label>Color de Fondo</label>
+                            <input type="color" id="bannerBg" value="#1e3a8a" style="height:40px;padding:4px 6px;cursor:pointer">
                         </div>
                         <div class="form-group full">
-                            <label>Enlace (opcional)</label>
-                            <input type="text" id="bannerLink" placeholder="Ej: tienda.html?categoria=electrodomesticos">
+                            <label>Enlace al hacer clic en el banner</label>
+                            <div class="link-toggle">
+                                <button class="link-tab active" id="tabUrl" onclick="setLinkMode('url')">
+                                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                                    URL personalizada
+                                </button>
+                                <button class="link-tab" id="tabProd" onclick="setLinkMode('product')">
+                                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    Buscar producto
+                                </button>
+                            </div>
+                            <div class="link-panel active" id="panelUrl">
+                                <input type="text" id="bannerLink" placeholder="Ej: tienda.html  |  https://wa.me/5841...">
+                            </div>
+                            <div class="link-panel" id="panelProd">
+                                <div class="bp-wrap">
+                                    <input type="text" id="bpSearch" placeholder="Escribe el nombre del producto..." oninput="bpRun(this.value)">
+                                    <button class="bp-btn" onclick="bpRun(document.getElementById('bpSearch').value)">
+                                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    </button>
+                                </div>
+                                <div class="bp-results" id="bpResults"></div>
+                                <div id="bpSelected"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-actions">
@@ -534,32 +535,32 @@
                         <button class="btn btn-primary" onclick="saveBanner()">Agregar Banner</button>
                     </div>
                 </div>
-
                 <div class="table-wrap">
-                    <div class="table-header">
-                        <h3>Banners del Carrusel</h3>
-                    </div>
+                    <div class="table-header"><h3>Banners del Carrusel</h3></div>
                     <table>
                         <thead>
-                            <tr><th>Vista Previa</th><th>Texto</th><th>Enlace</th><th>Orden</th><th>Acciones</th></tr>
+                            <tr><th>Vista Previa</th><th>Enlace</th><th>Orden</th><th>Acciones</th></tr>
                         </thead>
                         <tbody id="bannersTableBody">
-                            <tr><td colspan="5" style="text-align:center;color:var(--gray-400);padding:32px">No hay banners aún.</td></tr>
+                            <tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:32px">No hay banners aún.</td></tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- ===== OFERTAS ===== -->
+            
             <section class="page-section" id="page-offers">
                 <div class="form-card">
-                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg> Crear Oferta</h3>
+                    <h3>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                        Crear Oferta
+                    </h3>
                     <div class="form-grid">
                         <div class="form-group full">
                             <label>Buscar Producto</label>
                             <input type="text" id="offerSearch" placeholder="Escribe para buscar un producto..." oninput="filterOfferProducts(this.value)">
-                            <div id="offerResults" style="margin-top:8px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);max-height:200px;overflow-y:auto;display:none"></div>
-                            <div id="offerSelected" style="display:none;margin-top:8px;padding:10px 14px;background:var(--blue-50);border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;color:var(--blue-700)"></div>
+                            <div id="offerResults" style="margin-top:8px;border:1.5px solid #e2e8f0;border-radius:8px;max-height:200px;overflow-y:auto;display:none;background:white;box-shadow:0 4px 16px rgba(0,0,0,0.08)"></div>
+                            <div id="offerSelected" style="display:none;margin-top:8px;padding:10px 14px;background:#eff6ff;border-radius:8px;font-size:0.85rem;font-weight:600;color:#1d4ed8"></div>
                         </div>
                         <div class="form-group">
                             <label>Precio Original ($)</label>
@@ -571,7 +572,7 @@
                         </div>
                         <div class="form-group">
                             <label>Descuento (%)</label>
-                            <input type="number" id="offerDiscount" placeholder="Automático" min="1" max="99" readonly style="background:var(--gray-50)">
+                            <input type="text" id="offerDiscount" placeholder="Automático" readonly style="background:#f8fafc">
                         </div>
                         <div class="form-group">
                             <label>Fecha de Expiración</label>
@@ -583,17 +584,14 @@
                         <button class="btn btn-primary" onclick="saveOffer()">Activar Oferta</button>
                     </div>
                 </div>
-
                 <div class="table-wrap">
-                    <div class="table-header">
-                        <h3>Ofertas Activas</h3>
-                    </div>
+                    <div class="table-header"><h3>Ofertas Activas</h3></div>
                     <table>
                         <thead>
                             <tr><th>Producto</th><th>Original</th><th>Oferta</th><th>Descuento</th><th>Expira</th><th>Acciones</th></tr>
                         </thead>
                         <tbody id="offersTableBody">
-                            <tr><td colspan="6" style="text-align:center;color:var(--gray-400);padding:32px">No hay ofertas activas.</td></tr>
+                            <tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:32px">No hay ofertas activas.</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -603,19 +601,13 @@
     </div>
 
 <script type="module">
-    // ===== SUPABASE =====
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
     const SUPABASE_URL = 'https://kjaaoryyltemwsknhswm.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_djzazyfgAB5aqRC6J5N9Kg_XDskw04Y';
     var supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // ===== NAVEGACIÓN =====
-    var pageTitles = {
-        dashboard: 'Dashboard',
-        products: 'Gestión de Productos',
-        carousel: 'Carrusel de Banners',
-        offers: 'Ofertas'
-    };
+    
+    var pageTitles = { dashboard:'Dashboard', products:'Gestión de Productos', carousel:'Carrusel de Banners', offers:'Ofertas' };
 
     function showPage(page) {
         document.querySelectorAll('.sidebar-nav a').forEach(function(el) { el.classList.remove('active'); });
@@ -626,51 +618,50 @@
         if (section) section.classList.add('active');
         document.getElementById('pageTitle').innerHTML = pageTitles[page] || page;
     }
+    window.showPage = showPage;
 
-    // ===== LOAD DASHBOARD COUNTS =====
+    document.querySelectorAll('.sidebar-nav a[data-page]').forEach(function(el) {
+        el.addEventListener('click', function(e) { e.preventDefault(); showPage(this.getAttribute('data-page')); });
+    });
+
+    
     function loadDashboard() {
-        if (!supabase) {
-            document.getElementById('dashProdCount').textContent = '0';
-            document.getElementById('dashOfferCount').textContent = '0';
-            document.getElementById('dashBannerCount').textContent = '0';
-            return;
-        }
         supabase.from('productos').select('id').then(function(r) {
-            if (!r.error) document.getElementById('dashProdCount').textContent = (r.data || []).length;
+            if (!r.error) document.getElementById('dashProdCount').textContent = (r.data||[]).length;
         });
         supabase.from('ofertas').select('id').then(function(r) {
-            if (!r.error) document.getElementById('dashOfferCount').textContent = (r.data || []).length;
+            if (!r.error) document.getElementById('dashOfferCount').textContent = (r.data||[]).length;
         });
         supabase.from('banners').select('id').then(function(r) {
-            if (!r.error) document.getElementById('dashBannerCount').textContent = (r.data || []).length;
+            if (!r.error) document.getElementById('dashBannerCount').textContent = (r.data||[]).length;
         });
     }
 
-    // ===== PRODUCTOS =====
+    
     function loadProducts() {
-        if (!supabase) return;
         supabase.from('productos').select('*').then(function(resp) {
             var tbody = document.getElementById('productsTableBody');
             if (resp.error || !resp.data || !resp.data.length) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gray-400);padding:32px">No hay productos registrados.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:32px">No hay productos registrados.</td></tr>';
                 return;
             }
             tbody.innerHTML = resp.data.map(function(p) {
-                var img = p.image ? '<img src="' + p.image + '" style="width:36px;height:36px;object-fit:cover;border-radius:6px;display:block">' : '<div style="width:36px;height:36px;background:var(--blue-50);border-radius:6px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--blue-300)" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 2v4M16 2v4M6 12h12"/></svg></div>';
-                return '<tr><td>' + img + '</td><td>' + p.name + '</td><td><span class="badge badge-blue">' + p.category + '</span></td><td>$' + p.price + '</td><td><span class="badge badge-green">-</span></td><td><button class="btn btn-sm btn-danger" onclick="deleteProduct(\'' + p.id + '\')">Eliminar</button></td></tr>';
+                var img = p.image
+                    ? '<img src="' + p.image + '" style="width:36px;height:36px;object-fit:cover;border-radius:6px;display:block">'
+                    : '<div style="width:36px;height:36px;background:#eff6ff;border-radius:6px"></div>';
+                return '<tr><td>' + img + '</td><td>' + p.name + '</td><td><span class="badge badge-blue">' + (p.category||'') + '</span></td><td>$' + p.price + '</td><td><span class="badge badge-green">-</span></td><td><button class="btn btn-sm btn-danger" onclick="deleteProduct(\'' + p.id + '\')">Eliminar</button></td></tr>';
             }).join('');
         });
     }
 
     function deleteProduct(id) {
         if (!confirm('¿Eliminar este producto?')) return;
-        if (!supabase) return;
         supabase.from('productos').delete().eq('id', id).then(function(resp) {
             if (resp.error) { alert('Error: ' + resp.error.message); return; }
-            loadProducts();
-            loadDashboard();
+            loadProducts(); loadDashboard();
         });
     }
+    window.deleteProduct = deleteProduct;
 
     function resetProductForm() {
         document.getElementById('prodName').value = '';
@@ -681,6 +672,7 @@
         document.getElementById('prodImagePreview').style.display = 'none';
         document.getElementById('prodImageInput').value = '';
     }
+    window.resetProductForm = resetProductForm;
 
     function saveProduct() {
         var name = document.getElementById('prodName').value.trim();
@@ -703,21 +695,13 @@
         var file = fileInput.files ? fileInput.files[0] : null;
 
         function insertProduct(imageUrl) {
-            if (!supabase) { alert('Supabase no está disponible.'); return; }
             supabase.from('productos').upsert({
-                id: slug,
-                name: name,
-                category: category,
-                price: price,
-                description: desc,
-                specs: specs,
-                image: imageUrl || ''
+                id: slug, name: name, category: category, price: price,
+                description: desc, specs: specs, image: imageUrl || ''
             }).then(function(resp) {
                 if (resp.error) { alert('Error al guardar: ' + resp.error.message); return; }
-                alert('Producto guardado exitosamente.');
-                resetProductForm();
-                loadProducts();
-                loadDashboard();
+                alert('Producto guardado.');
+                resetProductForm(); loadProducts(); loadDashboard();
             });
         }
 
@@ -725,290 +709,322 @@
             var reader = new FileReader();
             reader.onload = function(e) {
                 var base64 = e.target.result.split(',')[1];
-                var formData = new FormData();
-                formData.append('image', base64);
-                fetch('https://api.imgbb.com/1/upload?key=1ed7e39db250edeafd135f8a5cdc053f', {
-                    method: 'POST',
-                    body: formData
-                }).then(function(r) { return r.json(); }).then(function(data) {
-                    if (data.success) insertProduct(data.data.url);
-                    else { alert('Error al subir imagen. El producto se guardará sin imagen.'); insertProduct(''); }
-                }).catch(function() { alert('Error de conexión con ImgBB. El producto se guardará sin imagen.'); insertProduct(''); });
+                var fd = new FormData(); fd.append('image', base64);
+                fetch('https://api.imgbb.com/1/upload?key=1ed7e39db250edeafd135f8a5cdc053f', { method:'POST', body:fd })
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        if (data.success) insertProduct(data.data.url);
+                        else insertProduct('');
+                    }).catch(function() { insertProduct(''); });
             };
             reader.readAsDataURL(file);
-        } else {
-            insertProduct('');
-        }
+        } else { insertProduct(''); }
     }
+    window.saveProduct = saveProduct;
 
-    // ===== OFERTAS =====
+    document.getElementById('prodImageInput').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            var p = document.getElementById('prodImagePreview');
+            p.querySelector('img').src = ev.target.result;
+            p.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    });
+
+    
     var allProducts = [];
     var selectedOfferProduct = null;
 
     function loadOfferProducts() {
-        if (!supabase) return;
         supabase.from('productos').select('id,name,category,price').then(function(resp) {
             if (!resp.error) allProducts = resp.data || [];
         });
     }
 
     function loadOffers() {
-        if (!supabase) return;
         supabase.from('ofertas').select('*').then(function(resp) {
             var tbody = document.getElementById('offersTableBody');
             if (resp.error || !resp.data || !resp.data.length) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gray-400);padding:32px">No hay ofertas activas.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:32px">No hay ofertas activas.</td></tr>';
                 return;
             }
             tbody.innerHTML = resp.data.map(function(o) {
                 var disc = Math.round((1 - o.sale_price / o.original_price) * 100);
-                return '<tr><td>' + o.product_name + '</td><td>$' + o.original_price + '</td><td>$' + o.sale_price + '</td><td><span class="badge badge-green">' + disc + '%</span></td><td>' + (o.expiry || '') + '</td><td><button class="btn btn-sm btn-danger" onclick="deleteOffer(\'' + o.id + '\')">Eliminar</button></td></tr>';
+                return '<tr><td>' + o.product_name + '</td><td>$' + o.original_price + '</td><td>$' + o.sale_price + '</td><td><span class="badge badge-green">' + disc + '%</span></td><td>' + (o.expiry||'') + '</td><td><button class="btn btn-sm btn-danger" onclick="deleteOffer(\'' + o.id + '\')">Eliminar</button></td></tr>';
             }).join('');
         });
     }
 
     function deleteOffer(id) {
         if (!confirm('¿Eliminar esta oferta?')) return;
-        if (!supabase) return;
         supabase.from('ofertas').delete().eq('id', id).then(function(resp) {
             if (resp.error) { alert('Error: ' + resp.error.message); return; }
-            loadOffers();
-            loadDashboard();
+            loadOffers(); loadDashboard();
         });
     }
+    window.deleteOffer = deleteOffer;
 
     function filterOfferProducts(query) {
         var container = document.getElementById('offerResults');
         if (!query.trim()) { container.style.display = 'none'; return; }
         var q = query.toLowerCase();
         var matches = allProducts.filter(function(p) {
-            return p.name.toLowerCase().indexOf(q) !== -1 || p.category.toLowerCase().indexOf(q) !== -1;
+            return p.name.toLowerCase().indexOf(q) !== -1 || (p.category||'').toLowerCase().indexOf(q) !== -1;
         });
         if (!matches.length) {
-            container.innerHTML = '<div style="padding:12px 14px;color:var(--gray-400);font-size:0.82rem">Sin resultados</div>';
+            container.innerHTML = '<div style="padding:12px 14px;color:#94a3b8;font-size:0.82rem">Sin resultados</div>';
         } else {
             container.innerHTML = matches.map(function(p) {
-                return '<div class="search-result-item" onclick="selectOfferProduct(\'' + p.id + '\',\'' + p.name.replace(/'/g, "\\'") + '\',' + p.price + ')">' + p.name + ' <small>' + p.category + ' - $' + p.price + '</small></div>';
+                var safeName = p.name.replace(/'/g, "\\'");
+                return '<div class="search-result-item" onclick="selectOfferProduct(\'' + p.id + '\',\'' + safeName + '\',' + p.price + ')">' + p.name + ' <small>' + (p.category||'') + ' - $' + p.price + '</small></div>';
             }).join('');
         }
         container.style.display = 'block';
     }
+    window.filterOfferProducts = filterOfferProducts;
 
     function selectOfferProduct(id, name, price) {
-        selectedOfferProduct = { id: id, name: name, price: price };
-        document.getElementById('offerSelected').innerHTML = 'Seleccionado: <strong>' + name + '</strong> <small style="font-weight:400;color:var(--gray-500)">- Precio original: $' + price + '</small>';
+        selectedOfferProduct = { id:id, name:name, price:price };
+        document.getElementById('offerSelected').innerHTML = 'Seleccionado: <strong>' + name + '</strong> <small style="font-weight:400;color:#64748b">— Precio original: $' + price + '</small>';
         document.getElementById('offerSelected').style.display = 'block';
         document.getElementById('offerOriginal').value = price;
         document.getElementById('offerSearch').value = name;
         document.getElementById('offerResults').style.display = 'none';
         calcDiscount();
     }
+    window.selectOfferProduct = selectOfferProduct;
 
     function calcDiscount() {
         var orig = parseFloat(document.getElementById('offerOriginal').value) || 0;
         var sale = parseFloat(document.getElementById('offerSale').value) || 0;
-        if (orig > 0 && sale > 0) {
-            var disc = Math.round((1 - sale / orig) * 100);
-            document.getElementById('offerDiscount').value = disc + '%';
-        } else {
-            document.getElementById('offerDiscount').value = '';
-        }
+        document.getElementById('offerDiscount').value = (orig > 0 && sale > 0) ? Math.round((1 - sale/orig)*100) + '%' : '';
     }
+    window.calcDiscount = calcDiscount;
 
     document.getElementById('offerOriginal').addEventListener('input', calcDiscount);
     document.getElementById('offerSale').addEventListener('input', calcDiscount);
 
     function resetOfferForm() {
         selectedOfferProduct = null;
-        document.getElementById('offerSearch').value = '';
-        document.getElementById('offerOriginal').value = '';
-        document.getElementById('offerSale').value = '';
-        document.getElementById('offerDiscount').value = '';
-        document.getElementById('offerExpiry').value = '';
+        ['offerSearch','offerOriginal','offerSale','offerDiscount','offerExpiry'].forEach(function(id) {
+            document.getElementById(id).value = '';
+        });
         document.getElementById('offerSelected').style.display = 'none';
         document.getElementById('offerResults').style.display = 'none';
     }
+    window.resetOfferForm = resetOfferForm;
 
     function saveOffer() {
         if (!selectedOfferProduct) { alert('Selecciona un producto primero.'); return; }
         var salePrice = parseFloat(document.getElementById('offerSale').value);
         if (!salePrice) { alert('Ingresa el precio de oferta.'); return; }
         var expiry = document.getElementById('offerExpiry').value;
-        var offerId = 'offer_' + selectedOfferProduct.id + '_' + Date.now();
-        if (!supabase) { alert('Supabase no está disponible.'); return; }
         supabase.from('ofertas').upsert({
-            id: offerId,
+            id: 'offer_' + selectedOfferProduct.id + '_' + Date.now(),
             product_id: selectedOfferProduct.id,
             product_name: selectedOfferProduct.name,
             original_price: selectedOfferProduct.price,
             sale_price: salePrice,
             expiry: expiry || null
         }).then(function(resp) {
-            if (resp.error) { alert('Error al guardar oferta: ' + resp.error.message); return; }
+            if (resp.error) { alert('Error: ' + resp.error.message); return; }
             alert('Oferta activada para ' + selectedOfferProduct.name);
-            resetOfferForm();
-            loadOffers();
-            loadDashboard();
+            resetOfferForm(); loadOffers(); loadDashboard();
         });
     }
+    window.saveOffer = saveOffer;
 
-    // ===== CARRUSEL =====
+    
+    var _blm  = 'url';   // banner link mode: 'url' | 'product'
+    var _bpid = null;    // banner product id
+
+    function setLinkMode(mode) {
+        _blm  = mode;
+        _bpid = null;
+        document.getElementById('panelUrl').classList.toggle('active', mode === 'url');
+        document.getElementById('panelProd').classList.toggle('active', mode === 'product');
+        document.getElementById('tabUrl').classList.toggle('active', mode === 'url');
+        document.getElementById('tabProd').classList.toggle('active', mode === 'product');
+        if (mode === 'url') {
+            document.getElementById('bpResults').style.display = 'none';
+            document.getElementById('bpSelected').innerHTML = '';
+            document.getElementById('bpSearch').value = '';
+        }
+    }
+    window.setLinkMode = setLinkMode;
+
+    function bpRun(q) {
+        var res = document.getElementById('bpResults');
+        if (!q || q.length < 2) { res.style.display = 'none'; return; }
+        supabase.from('productos').select('id,name,price,image').ilike('name','%'+q+'%').limit(8).then(function(r) {
+            var items = r.data || [];
+            res.innerHTML = '';
+            if (!items.length) {
+                var d = document.createElement('div');
+                d.className = 'bp-empty'; d.textContent = 'Sin resultados';
+                res.appendChild(d);
+            } else {
+                items.forEach(function(p) {
+                    var row = document.createElement('div');
+                    row.className = 'bp-item';
+                    var pid = p.id, pname = p.name;
+                    row.onclick = function() { bpSelect(pid, pname); };
+                    if (p.image) {
+                        var img = document.createElement('img');
+                        img.src = p.image; img.alt = '';
+                        row.appendChild(img);
+                    } else {
+                        var nd = document.createElement('div');
+                        nd.className = 'bp-item-noimg';
+                        row.appendChild(nd);
+                    }
+                    var info = document.createElement('div');
+                    var n = document.createElement('div'); n.className = 'bp-item-name'; n.textContent = p.name;
+                    var pr = document.createElement('div'); pr.className = 'bp-item-price'; pr.textContent = '$' + p.price;
+                    info.appendChild(n); info.appendChild(pr);
+                    row.appendChild(info);
+                    res.appendChild(row);
+                });
+            }
+            res.style.display = 'block';
+        });
+    }
+    window.bpRun = bpRun;
+
+    function bpSelect(id, name) {
+        _bpid = id;
+        document.getElementById('bpResults').style.display = 'none';
+        document.getElementById('bpSearch').value = '';
+        var sel = document.getElementById('bpSelected');
+        sel.innerHTML = '';
+        var tag = document.createElement('div');
+        tag.className = 'bp-tag';
+        tag.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        var txt = document.createTextNode(name);
+        tag.appendChild(txt);
+        var btn = document.createElement('button');
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+        btn.onclick = function() { _bpid = null; sel.innerHTML = ''; };
+        tag.appendChild(btn);
+        sel.appendChild(tag);
+    }
+    window.bpSelect = bpSelect;
+
     function loadBanners() {
-        if (!supabase) return;
         supabase.from('banners').select('*').then(function(resp) {
             var tbody = document.getElementById('bannersTableBody');
             if (resp.error || !resp.data || !resp.data.length) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--gray-400);padding:32px">No hay banners aún.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:32px">No hay banners aún.</td></tr>';
                 return;
             }
             tbody.innerHTML = resp.data.map(function(b) {
-                var prev = b.image ? '<img src="' + b.image + '" style="width:80px;height:38px;object-fit:cover;border-radius:4px;display:block">' : '<div style="width:80px;height:38px;background:var(--blue-50);border-radius:4px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--blue-300)" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 12l2 2 4-4"/></svg></div>';
-                return '<tr><td>' + prev + '</td><td>' + (b.text || '') + '</td><td>' + (b.link || '') + '</td><td>' + (b.order || 0) + '</td><td><button class="btn btn-sm btn-danger" onclick="deleteBanner(\'' + b.id + '\')">Eliminar</button></td></tr>';
+                var prev = b.image
+                    ? '<img src="' + b.image + '" style="width:80px;height:36px;object-fit:cover;border-radius:5px;display:block">'
+                    : '<div style="width:80px;height:36px;background:#eff6ff;border-radius:5px"></div>';
+                var link = b.link ? '<span style="font-size:0.78rem;color:#475569">' + b.link + '</span>' : '<span style="color:#94a3b8;font-size:0.78rem">Sin enlace</span>';
+                return '<tr><td>' + prev + '</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + link + '</td><td>' + (b.order||0) + '</td><td><button class="btn btn-sm btn-danger" onclick="deleteBanner(\'' + b.id + '\')">Eliminar</button></td></tr>';
             }).join('');
         });
     }
 
     function deleteBanner(id) {
         if (!confirm('¿Eliminar este banner?')) return;
-        if (!supabase) return;
         supabase.from('banners').delete().eq('id', id).then(function(resp) {
             if (resp.error) { alert('Error: ' + resp.error.message); return; }
-            loadBanners();
-            loadDashboard();
+            loadBanners(); loadDashboard();
         });
     }
-
-    function updateBannerPreview(src) {
-        var preview = document.getElementById('bannerPreview');
-        var fit = document.getElementById('bannerFit').value;
-        preview.innerHTML = '<img src="' + src + '" style="width:100%;height:100%;object-fit:' + fit + ';display:block">';
-        preview.style.background = document.getElementById('bannerBg').value;
-    }
+    window.deleteBanner = deleteBanner;
 
     function resetBannerForm() {
         document.getElementById('bannerInput').value = '';
-        document.getElementById('bannerText').value = '';
         document.getElementById('bannerLink').value = '';
         document.getElementById('bannerFit').value = 'cover';
         document.getElementById('bannerBg').value = '#1e3a8a';
         var preview = document.getElementById('bannerPreview');
-        preview.innerHTML = '<span style="color:rgba(255,255,255,0.5);font-size:0.9rem">Vista previa del banner</span>';
-        preview.style.background = 'linear-gradient(135deg, var(--blue-800), var(--blue-600))';
+        preview.innerHTML = '<span>La imagen aparecerá aquí</span>';
+        preview.style.background = 'linear-gradient(135deg,#020b1c,#1a3a8f)';
+        setLinkMode('url');
     }
+    window.resetBannerForm = resetBannerForm;
 
     function saveBanner() {
-        var fileInput = document.getElementById('bannerInput');
-        var file = fileInput.files ? fileInput.files[0] : null;
+        var file = document.getElementById('bannerInput').files[0];
         if (!file) { alert('Selecciona una imagen para el banner.'); return; }
-
         var reader = new FileReader();
         reader.onload = function(e) {
             var base64 = e.target.result.split(',')[1];
-            var formData = new FormData();
-            formData.append('image', base64);
-            fetch('https://api.imgbb.com/1/upload?key=1ed7e39db250edeafd135f8a5cdc053f', {
-                method: 'POST',
-                body: formData
-            }).then(function(r) { return r.json(); }).then(function(data) {
-                if (!data.success) { alert('Error al subir imagen a ImgBB.'); return; }
-                var bannerId = 'banner_' + Date.now();
-                if (!supabase) { alert('Supabase no está disponible.'); return; }
-                supabase.from('banners').upsert({
-                    id: bannerId,
-                    image: data.data.url,
-                    text: document.getElementById('bannerText').value.trim(),
-                    link: document.getElementById('bannerLink').value.trim(),
-                    fit: document.getElementById('bannerFit').value,
-                    bg_color: document.getElementById('bannerBg').value,
-                    text_position: document.getElementById('bannerTextPos').value,
-                    order: 0
-                }).then(function(resp) {
-                    if (resp.error) { alert('Error al guardar banner: ' + resp.error.message); return; }
-                    alert('Banner agregado exitosamente.');
-                    resetBannerForm();
-                    loadBanners();
-                    loadDashboard();
-                });
-            }).catch(function() { alert('Error de conexión con ImgBB.'); });
+            var fd = new FormData(); fd.append('image', base64);
+            fetch('https://api.imgbb.com/1/upload?key=1ed7e39db250edeafd135f8a5cdc053f', { method:'POST', body:fd })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (!data.success) { alert('Error al subir imagen a ImgBB.'); return; }
+                    var finalLink = (_blm === 'product' && _bpid)
+                        ? 'detalle.html?id=' + _bpid
+                        : document.getElementById('bannerLink').value.trim();
+                    supabase.from('banners').upsert({
+                        id: 'banner_' + Date.now(),
+                        image: data.data.url,
+                        text: '',
+                        link: finalLink,
+                        fit: document.getElementById('bannerFit').value,
+                        bg_color: document.getElementById('bannerBg').value,
+                        text_position: '',
+                        order: 0
+                    }).then(function(resp) {
+                        if (resp.error) { alert('Error: ' + resp.error.message); return; }
+                        alert('Banner agregado.');
+                        resetBannerForm(); loadBanners(); loadDashboard();
+                    });
+                }).catch(function() { alert('Error de conexión con ImgBB.'); });
         };
         reader.readAsDataURL(file);
     }
-
-    // Preview de imagen subida
-    document.getElementById('prodImageInput').addEventListener('change', function(e) {
-        var file = e.target.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function(ev) {
-                var preview = document.getElementById('prodImagePreview');
-                preview.querySelector('img').src = ev.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+    window.saveBanner = saveBanner;
 
     document.getElementById('bannerInput').addEventListener('change', function(e) {
-        var file = e.target.files[0];
-        if (!file) return;
+        var file = e.target.files[0]; if (!file) return;
         var reader = new FileReader();
-        reader.onload = function(ev) { updateBannerPreview(ev.target.result); };
+        reader.onload = function(ev) {
+            var preview = document.getElementById('bannerPreview');
+            var fit = document.getElementById('bannerFit').value;
+            preview.innerHTML = '<img src="' + ev.target.result + '" style="width:100%;height:100%;object-fit:' + fit + ';display:block">';
+            preview.style.background = document.getElementById('bannerBg').value;
+        };
         reader.readAsDataURL(file);
     });
-
     document.getElementById('bannerFit').addEventListener('change', function() {
         var img = document.querySelector('#bannerPreview img');
         if (img) img.style.objectFit = this.value;
     });
-
     document.getElementById('bannerBg').addEventListener('input', function() {
-        var preview = document.getElementById('bannerPreview');
-        preview.style.background = this.value;
+        document.getElementById('bannerPreview').style.background = this.value;
     });
 
+    
     var sidebar = document.querySelector('.sidebar');
     var overlay = document.getElementById('sidebarOverlay');
-
     document.getElementById('menuBtn').addEventListener('click', function() {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('show');
+        sidebar.classList.toggle('open'); overlay.classList.toggle('show');
     });
-
     overlay.addEventListener('click', function() {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('show');
+        sidebar.classList.remove('open'); overlay.classList.remove('show');
     });
-
     document.querySelectorAll('.sidebar-nav a').forEach(function(el) {
         el.addEventListener('click', function() {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('show');
+            sidebar.classList.remove('open'); overlay.classList.remove('show');
         });
     });
 
-    // ===== INIT =====
+    
     loadDashboard();
     loadProducts();
     loadOfferProducts();
     loadOffers();
     loadBanners();
-    document.querySelectorAll('.sidebar-nav a[data-page]').forEach(function(el) {
-        el.addEventListener('click', function(e) { e.preventDefault(); showPage(this.getAttribute('data-page')); });
-    });
-
-    // Expose functions for onclick handlers
-    window.saveProduct = saveProduct;
-    window.deleteProduct = deleteProduct;
-    window.resetProductForm = resetProductForm;
-    window.saveOffer = saveOffer;
-    window.deleteOffer = deleteOffer;
-    window.filterOfferProducts = filterOfferProducts;
-    window.selectOfferProduct = selectOfferProduct;
-    window.calcDiscount = calcDiscount;
-    window.resetOfferForm = resetOfferForm;
-    window.saveBanner = saveBanner;
-    window.deleteBanner = deleteBanner;
-    window.resetBannerForm = resetBannerForm;
 
 </script>
 
