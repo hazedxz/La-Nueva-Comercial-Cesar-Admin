@@ -42,7 +42,7 @@
                -webkit-font-smoothing: antialiased; display: flex; min-height: 100vh; }
         a { text-decoration: none; color: inherit; }
 
-        
+       
         .sidebar {
             width: 250px; background: var(--ink);
             display: flex; flex-direction: column;
@@ -301,6 +301,47 @@
             .form-actions { flex-direction: column; }
             .form-actions .btn { width: 100%; justify-content: center; }
         }
+
+        
+        .offer-product-card {
+            display: flex; align-items: center; gap: 14px;
+            padding: 12px 16px; background: #f0f7ff;
+            border: 1.5px solid #93c5fd; border-radius: 10px;
+            margin-top: 8px;
+        }
+        .offer-product-card img {
+            width: 52px; height: 52px; object-fit: cover;
+            border-radius: 8px; flex-shrink: 0;
+        }
+        .offer-product-card .no-img {
+            width: 52px; height: 52px; background: #dbeafe;
+            border-radius: 8px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .offer-product-card .no-img svg { width: 22px; height: 22px; stroke: #60a5fa; fill: none; }
+        .offer-product-info { flex: 1; min-width: 0; }
+        .offer-product-name { font-size: .88rem; font-weight: 700; color: #1e3a8a; }
+        .offer-product-price { font-size: .82rem; color: #2563eb; margin-top: 2px; font-weight: 600; }
+        .offer-product-close {
+            background: none; border: none; cursor: pointer;
+            color: #93c5fd; padding: 2px; border-radius: 4px; transition: color .15s;
+        }
+        .offer-product-close:hover { color: #dc2626; }
+        .offer-product-close svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.3; }
+        .discount-quick { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 8px; }
+        .discount-quick button {
+            padding: 5px 12px; border-radius: 50px; font-size: .74rem; font-weight: 700;
+            border: 1.5px solid #dbeafe; background: white; color: #2563eb;
+            cursor: pointer; transition: all .15s; font-family: var(--f);
+        }
+        .discount-quick button:hover { background: #2563eb; color: white; border-color: #2563eb; }
+        .offer-price-result {
+            margin-top: 8px; padding: 8px 12px;
+            background: #f0fdf4; border: 1.5px solid #86efac;
+            border-radius: 8px; font-size: .82rem; color: #166534;
+            font-weight: 600; display: none;
+        }
+        .offer-price-result.show { display: block; }
     </style>
 </head>
 <body>
@@ -433,7 +474,7 @@
                             <textarea id="prodSpecs" placeholder="Capacidad|18 pies cúbicos&#10;Sistema|No Frost&#10;Eficiencia|A++"></textarea>
                         </div>
                         <div class="form-group full">
-                            <label>Imagen del Producto</label>
+                            <label>Imagen Principal del Producto</label>
                             <div class="upload-area" onclick="document.getElementById('prodImageInput').click()">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                                 <p>Haz clic para subir imagen</p>
@@ -444,10 +485,39 @@
                                 <img src="" alt="Preview" style="max-height:120px;border-radius:6px">
                             </div>
                         </div>
+                        <div class="form-group full">
+                            <label>Imágenes Adicionales (opcional — hasta 3 fotos extra)</label>
+                            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+                                <div>
+                                    <div class="upload-area" onclick="document.getElementById('prodImage2Input').click()" style="padding:16px">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                        <p style="font-size:.72rem">Foto 2</p>
+                                        <input type="file" id="prodImage2Input" accept="image/*" style="display:none">
+                                    </div>
+                                    <div id="prodImage2Preview" style="display:none;margin-top:6px"><img src="" alt="" style="width:100%;height:70px;object-fit:cover;border-radius:6px"></div>
+                                </div>
+                                <div>
+                                    <div class="upload-area" onclick="document.getElementById('prodImage3Input').click()" style="padding:16px">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                        <p style="font-size:.72rem">Foto 3</p>
+                                        <input type="file" id="prodImage3Input" accept="image/*" style="display:none">
+                                    </div>
+                                    <div id="prodImage3Preview" style="display:none;margin-top:6px"><img src="" alt="" style="width:100%;height:70px;object-fit:cover;border-radius:6px"></div>
+                                </div>
+                                <div>
+                                    <div class="upload-area" onclick="document.getElementById('prodImage4Input').click()" style="padding:16px">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                        <p style="font-size:.72rem">Foto 4</p>
+                                        <input type="file" id="prodImage4Input" accept="image/*" style="display:none">
+                                    </div>
+                                    <div id="prodImage4Preview" style="display:none;margin-top:6px"><img src="" alt="" style="width:100%;height:70px;object-fit:cover;border-radius:6px"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-actions">
-                        <button class="btn btn-outline" onclick="resetProductForm()">Cancelar</button>
-                        <button class="btn btn-primary" onclick="saveProduct()">Guardar Producto</button>
+                        <button class="btn btn-outline" type="button" onclick="resetProductForm()">Cancelar</button>
+                        <button class="btn btn-primary" type="button" onclick="saveProduct()">Guardar Producto</button>
                     </div>
                 </div>
                 <div class="table-wrap">
@@ -556,28 +626,53 @@
                         Crear Oferta
                     </h3>
                     <div class="form-grid">
+
+                        <!-- Buscador de producto -->
                         <div class="form-group full">
                             <label>Buscar Producto</label>
-                            <input type="text" id="offerSearch" placeholder="Escribe para buscar un producto..." oninput="filterOfferProducts(this.value)">
-                            <div id="offerResults" style="margin-top:8px;border:1.5px solid #e2e8f0;border-radius:8px;max-height:200px;overflow-y:auto;display:none;background:white;box-shadow:0 4px 16px rgba(0,0,0,0.08)"></div>
-                            <div id="offerSelected" style="display:none;margin-top:8px;padding:10px 14px;background:#eff6ff;border-radius:8px;font-size:0.85rem;font-weight:600;color:#1d4ed8"></div>
+                            <div style="position:relative">
+                                <input type="text" id="offerSearch" placeholder="Escribe el nombre del producto..." oninput="filterOfferProducts(this.value)" style="padding-right:36px">
+                                <span style="position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </span>
+                            </div>
+                            <div id="offerResults" style="margin-top:6px;border:1.5px solid #e2e8f0;border-radius:10px;max-height:220px;overflow-y:auto;display:none;background:white;box-shadow:0 4px 20px rgba(0,0,0,0.1)"></div>
+                            <div id="offerSelected" style="display:none"></div>
                         </div>
+
+                        
                         <div class="form-group">
                             <label>Precio Original ($)</label>
-                            <input type="number" id="offerOriginal" placeholder="0.00" step="0.01">
+                            <input type="number" id="offerOriginal" placeholder="Se llena automáticamente" step="0.01" style="background:#f8fafc" readonly>
                         </div>
+
+                        
                         <div class="form-group">
-                            <label>Precio de Oferta ($)</label>
-                            <input type="number" id="offerSale" placeholder="0.00" step="0.01">
+                            <label>Nuevo Precio de Oferta ($)</label>
+                            <input type="number" id="offerSale" placeholder="0.00" step="0.01" oninput="calcFromPrice()">
+                            <div class="offer-price-result" id="offerPriceResult"></div>
                         </div>
-                        <div class="form-group">
-                            <label>Descuento (%)</label>
-                            <input type="text" id="offerDiscount" placeholder="Automático" readonly style="background:#f8fafc">
+
+                        
+                        <div class="form-group full">
+                            <label>O aplica un % de descuento</label>
+                            <input type="number" id="offerDiscount" placeholder="Ej: 20" min="1" max="99" step="1" oninput="calcFromPercent()">
+                            <div class="discount-quick">
+                                <button onclick="applyDiscount(10)">10%</button>
+                                <button onclick="applyDiscount(15)">15%</button>
+                                <button onclick="applyDiscount(20)">20%</button>
+                                <button onclick="applyDiscount(25)">25%</button>
+                                <button onclick="applyDiscount(30)">30%</button>
+                                <button onclick="applyDiscount(50)">50%</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Fecha de Expiración</label>
-                            <input type="date" id="offerExpiry">
+
+                        
+                        <div class="form-group full">
+                            <label>Fecha y Hora de Expiración</label>
+                            <input type="datetime-local" id="offerExpiry">
                         </div>
+
                     </div>
                     <div class="form-actions">
                         <button class="btn btn-outline" onclick="resetOfferForm()">Cancelar</button>
@@ -637,7 +732,7 @@
         });
     }
 
-    
+   
     function loadProducts() {
         supabase.from('productos').select('*').then(function(resp) {
             var tbody = document.getElementById('productsTableBody');
@@ -671,6 +766,10 @@
         document.getElementById('prodSpecs').value = '';
         document.getElementById('prodImagePreview').style.display = 'none';
         document.getElementById('prodImageInput').value = '';
+        ['2','3','4'].forEach(function(n) {
+            document.getElementById('prodImage' + n + 'Input').value = '';
+            document.getElementById('prodImage' + n + 'Preview').style.display = 'none';
+        });
     }
     window.resetProductForm = resetProductForm;
 
@@ -694,10 +793,13 @@
         var fileInput = document.getElementById('prodImageInput');
         var file = fileInput.files ? fileInput.files[0] : null;
 
-        function insertProduct(imageUrl) {
+        function insertProduct(imageUrl, extraUrls) {
             supabase.from('productos').upsert({
                 id: slug, name: name, category: category, price: price,
-                description: desc, specs: specs, image: imageUrl || ''
+                description: desc, specs: specs, image: imageUrl || '',
+                image_2: extraUrls[0] || null,
+                image_3: extraUrls[1] || null,
+                image_4: extraUrls[2] || null
             }).then(function(resp) {
                 if (resp.error) { alert('Error al guardar: ' + resp.error.message); return; }
                 alert('Producto guardado.');
@@ -705,20 +807,48 @@
             });
         }
 
-        if (file) {
+        function uploadToImgBB(fileToUp, callback) {
             var reader = new FileReader();
             reader.onload = function(e) {
                 var base64 = e.target.result.split(',')[1];
                 var fd = new FormData(); fd.append('image', base64);
                 fetch('https://api.imgbb.com/1/upload?key=1ed7e39db250edeafd135f8a5cdc053f', { method:'POST', body:fd })
                     .then(function(r) { return r.json(); })
-                    .then(function(data) {
-                        if (data.success) insertProduct(data.data.url);
-                        else insertProduct('');
-                    }).catch(function() { insertProduct(''); });
+                    .then(function(data) { callback(data.success ? data.data.url : null); })
+                    .catch(function() { callback(null); });
             };
-            reader.readAsDataURL(file);
-        } else { insertProduct(''); }
+            reader.readAsDataURL(fileToUp);
+        }
+
+        var mainFile = file;
+        var extraFiles = ['2','3','4'].map(function(n) {
+            var inp = document.getElementById('prodImage' + n + 'Input');
+            return inp.files && inp.files[0] ? inp.files[0] : null;
+        });
+
+        
+        function processExtras(index, results) {
+            if (index === 3) {
+                
+                if (mainFile) {
+                    uploadToImgBB(mainFile, function(url) { insertProduct(url || '', results); });
+                } else {
+                    insertProduct('', results);
+                }
+                return;
+            }
+            if (extraFiles[index]) {
+                uploadToImgBB(extraFiles[index], function(url) {
+                    results.push(url || null);
+                    processExtras(index + 1, results);
+                });
+            } else {
+                results.push(null);
+                processExtras(index + 1, results);
+            }
+        }
+
+        processExtras(0, []);
     }
     window.saveProduct = saveProduct;
 
@@ -734,6 +864,20 @@
         reader.readAsDataURL(file);
     });
 
+    ['2','3','4'].forEach(function(n) {
+        document.getElementById('prodImage' + n + 'Input').addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(ev) {
+                var p = document.getElementById('prodImage' + n + 'Preview');
+                p.querySelector('img').src = ev.target.result;
+                p.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
     
     var allProducts = [];
     var selectedOfferProduct = null;
@@ -744,6 +888,20 @@
         });
     }
 
+    function formatExpiry(exp) {
+        if (!exp) return '<span style="color:#94a3b8">Sin fecha</span>';
+        var d = new Date(exp);
+        var now = new Date();
+        if (d < now) return '<span style="color:#dc2626;font-weight:600">Expirada</span>';
+        var diff = d - now;
+        var days  = Math.floor(diff / 86400000);
+        var hours = Math.floor((diff % 86400000) / 3600000);
+        var mins  = Math.floor((diff % 3600000) / 60000);
+        if (days > 0) return '<span style="color:#059669;font-weight:600">' + days + 'd ' + hours + 'h ' + mins + 'm</span>';
+        if (hours > 0) return '<span style="color:#d97706;font-weight:600">' + hours + 'h ' + mins + 'm</span>';
+        return '<span style="color:#dc2626;font-weight:600">' + mins + 'm</span>';
+    }
+
     function loadOffers() {
         supabase.from('ofertas').select('*').then(function(resp) {
             var tbody = document.getElementById('offersTableBody');
@@ -751,9 +909,22 @@
                 tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:32px">No hay ofertas activas.</td></tr>';
                 return;
             }
-            tbody.innerHTML = resp.data.map(function(o) {
+            var now = new Date().getTime();
+            var expired = resp.data.filter(function(o) { return o.expiry && new Date(o.expiry).getTime() <= now; });
+            var active = resp.data.filter(function(o) { return !o.expiry || new Date(o.expiry).getTime() > now; });
+
+            
+            expired.forEach(function(o) {
+                supabase.from('ofertas').delete().eq('id', o.id).then(function() {});
+            });
+
+            if (!active.length) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:32px">No hay ofertas activas.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = active.map(function(o) {
                 var disc = Math.round((1 - o.sale_price / o.original_price) * 100);
-                return '<tr><td>' + o.product_name + '</td><td>$' + o.original_price + '</td><td>$' + o.sale_price + '</td><td><span class="badge badge-green">' + disc + '%</span></td><td>' + (o.expiry||'') + '</td><td><button class="btn btn-sm btn-danger" onclick="deleteOffer(\'' + o.id + '\')">Eliminar</button></td></tr>';
+                return '<tr><td>' + o.product_name + '</td><td>$' + o.original_price + '</td><td>$' + o.sale_price + '</td><td><span class="badge badge-green">' + disc + '%</span></td><td>' + formatExpiry(o.expiry) + '</td><td><button class="btn btn-sm btn-danger" onclick="deleteOffer(\'' + o.id + '\')">Eliminar</button></td></tr>';
             }).join('');
         });
     }
@@ -786,26 +957,81 @@
     }
     window.filterOfferProducts = filterOfferProducts;
 
-    function selectOfferProduct(id, name, price) {
+    function selectOfferProduct(id, name, price, image) {
         selectedOfferProduct = { id:id, name:name, price:price };
-        document.getElementById('offerSelected').innerHTML = 'Seleccionado: <strong>' + name + '</strong> <small style="font-weight:400;color:#64748b">— Precio original: $' + price + '</small>';
-        document.getElementById('offerSelected').style.display = 'block';
+        var thumbHtml = image
+            ? '<img src="' + image + '" style="width:52px;height:52px;object-fit:cover;border-radius:8px;flex-shrink:0">'
+            : '<div class="no-img" style="width:52px;height:52px;background:#dbeafe;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>';
+        var sel = document.getElementById('offerSelected');
+        sel.innerHTML = '<div class="offer-product-card">'
+            + thumbHtml
+            + '<div class="offer-product-info">'
+            + '<div class="offer-product-name">' + name + '</div>'
+            + '<div class="offer-product-price">Precio actual: $' + price + '</div>'
+            + '</div>'
+            + '<button class="offer-product-close" onclick="clearOfferProduct()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'
+            + '</div>';
+        sel.style.display = 'block';
         document.getElementById('offerOriginal').value = price;
-        document.getElementById('offerSearch').value = name;
+        document.getElementById('offerSearch').value = '';
         document.getElementById('offerResults').style.display = 'none';
-        calcDiscount();
     }
     window.selectOfferProduct = selectOfferProduct;
 
-    function calcDiscount() {
+    function clearOfferProduct() {
+        selectedOfferProduct = null;
+        document.getElementById('offerSelected').style.display = 'none';
+        document.getElementById('offerSelected').innerHTML = '';
+        document.getElementById('offerOriginal').value = '';
+        document.getElementById('offerSale').value = '';
+        document.getElementById('offerDiscount').value = '';
+        document.getElementById('offerPriceResult').classList.remove('show');
+    }
+    window.clearOfferProduct = clearOfferProduct;
+
+    
+    function calcFromPrice() {
         var orig = parseFloat(document.getElementById('offerOriginal').value) || 0;
         var sale = parseFloat(document.getElementById('offerSale').value) || 0;
-        document.getElementById('offerDiscount').value = (orig > 0 && sale > 0) ? Math.round((1 - sale/orig)*100) + '%' : '';
+        if (orig > 0 && sale > 0 && sale < orig) {
+            var pct = Math.round((1 - sale/orig) * 100);
+            document.getElementById('offerDiscount').value = pct;
+            var savings = (orig - sale).toFixed(2);
+            var result = document.getElementById('offerPriceResult');
+            result.textContent = pct + '% de descuento — El cliente ahorra $' + savings;
+            result.classList.add('show');
+        } else {
+            document.getElementById('offerDiscount').value = '';
+            document.getElementById('offerPriceResult').classList.remove('show');
+        }
     }
-    window.calcDiscount = calcDiscount;
+    window.calcFromPrice = calcFromPrice;
 
-    document.getElementById('offerOriginal').addEventListener('input', calcDiscount);
-    document.getElementById('offerSale').addEventListener('input', calcDiscount);
+   
+    function calcFromPercent() {
+        var orig = parseFloat(document.getElementById('offerOriginal').value) || 0;
+        var pct  = parseFloat(document.getElementById('offerDiscount').value) || 0;
+        if (orig > 0 && pct > 0 && pct < 100) {
+            var sale = parseFloat((orig * (1 - pct/100)).toFixed(2));
+            document.getElementById('offerSale').value = sale;
+            var savings = (orig - sale).toFixed(2);
+            var result = document.getElementById('offerPriceResult');
+            result.textContent = pct + '% de descuento — Nuevo precio: $' + sale + ' (ahorro de $' + savings + ')';
+            result.classList.add('show');
+        }
+    }
+    window.calcFromPercent = calcFromPercent;
+
+    
+    function applyDiscount(pct) {
+        document.getElementById('offerDiscount').value = pct;
+        calcFromPercent();
+    }
+    window.applyDiscount = applyDiscount;
+
+    
+    function calcDiscount() { calcFromPrice(); }
+    window.calcDiscount = calcDiscount;
 
     function resetOfferForm() {
         selectedOfferProduct = null;
@@ -813,7 +1039,10 @@
             document.getElementById(id).value = '';
         });
         document.getElementById('offerSelected').style.display = 'none';
+        document.getElementById('offerSelected').innerHTML = '';
         document.getElementById('offerResults').style.display = 'none';
+        document.getElementById('offerPriceResult').classList.remove('show');
+        selectedOfferProduct = null;
     }
     window.resetOfferForm = resetOfferForm;
 
