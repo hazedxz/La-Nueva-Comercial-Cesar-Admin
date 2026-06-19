@@ -42,7 +42,7 @@
                -webkit-font-smoothing: antialiased; display: flex; min-height: 100vh; }
         a { text-decoration: none; color: inherit; }
 
-       
+        
         .sidebar {
             width: 250px; background: var(--ink);
             display: flex; flex-direction: column;
@@ -106,6 +106,49 @@
         .page-section.active { display: block; }
 
         
+        .card { background: white; border-radius: var(--r); border: 1px solid #f1f5f9; box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
+        .card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
+        .card-header h3 { font-size: .88rem; font-weight: 700; color: #0f172a; margin: 0; }
+        .featured-item {
+            background: white; border: 2px solid #e2e8f0; border-radius: 12px;
+            padding: 12px; cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .15s;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .featured-item:hover { border-color: #93c5fd; box-shadow: 0 4px 16px rgba(37,99,235,0.1); transform: translateY(-2px); }
+        .featured-item.selected { border-color: #2563eb; box-shadow: 0 4px 20px rgba(37,99,235,0.2); }
+        .featured-item.selected::after {
+            content: '✓ Seleccionado'; display: block; text-align: center;
+            font-size: 10px; font-weight: 700; color: #2563eb;
+            background: #eff6ff; border-radius: 6px; padding: 3px 0; margin-top: 4px;
+        }
+        .featured-item-img {
+            width: 100%; aspect-ratio: 1; border-radius: 8px; overflow: hidden;
+            background: #f8fafc; display: flex; align-items: center; justify-content: center;
+        }
+        .featured-item-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .featured-item-name { font-size: 11px; font-weight: 600; color: #0f172a; line-height: 1.3; }
+        .featured-item-price { font-size: 12px; font-weight: 700; color: #2563eb; }
+        .featured-item-cat { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px; color: #94a3b8; }
+
+        .featured-current-inner {
+            display: flex; align-items: center; gap: 16px;
+        }
+        .featured-current-img {
+            width: 72px; height: 72px; border-radius: 10px; overflow: hidden;
+            background: #f8fafc; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+        }
+        .featured-current-img img { width: 100%; height: 100%; object-fit: cover; }
+        .featured-current-info { flex: 1; }
+        .featured-current-name { font-size: .92rem; font-weight: 700; color: #0f172a; }
+        .featured-current-price { font-size: .88rem; color: #2563eb; font-weight: 600; margin-top: 3px; }
+        .featured-clear-btn {
+            padding: 6px 14px; font-size: .78rem; font-weight: 600; cursor: pointer;
+            border: 1px solid #fca5a5; background: #fff1f2; color: #dc2626;
+            border-radius: 7px; transition: background .2s;
+        }
+        .featured-clear-btn:hover { background: #fee2e2; }
+
+      
         .welcome-card {
             background: linear-gradient(128deg, #020b1c 0%, #0b1e50 55%, #112260 100%);
             border-radius: var(--r); padding: 24px 28px; color: white;
@@ -213,7 +256,7 @@
             margin-bottom: 12px; overflow: hidden; }
         .carousel-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        
+       
         .upload-area { border: 2px dashed var(--n200); border-radius: var(--rsm); padding: 26px;
             text-align: center; cursor: pointer; transition: all .15s; background: var(--n50); }
         .upload-area:hover { border-color: #60a5fa; background: #eff6ff; }
@@ -379,6 +422,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
                 Ofertas
             </a>
+            <a href="#" data-page="featured">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Producto del Día
+            </a>
         </nav>
         <div class="sidebar-footer"><span class="dot"></span> v1.0 — Panel Administrativo</div>
     </aside>
@@ -438,7 +485,7 @@
                 </div>
             </section>
 
-            
+           
             <section class="page-section" id="page-products">
                 <div class="form-card">
                     <h3>
@@ -627,7 +674,7 @@
                     </h3>
                     <div class="form-grid">
 
-                        <!-- Buscador de producto -->
+                       
                         <div class="form-group full">
                             <label>Buscar Producto</label>
                             <div style="position:relative">
@@ -653,7 +700,7 @@
                             <div class="offer-price-result" id="offerPriceResult"></div>
                         </div>
 
-                        
+                       
                         <div class="form-group full">
                             <label>O aplica un % de descuento</label>
                             <input type="number" id="offerDiscount" placeholder="Ej: 20" min="1" max="99" step="1" oninput="calcFromPercent()">
@@ -692,6 +739,37 @@
                 </div>
             </section>
 
+            
+            <section class="page-section" id="page-featured">
+                <div class="welcome-card" style="margin-bottom:24px;">
+                    <h2>⭐ Producto del Día</h2>
+                    <p>El producto seleccionado se mostrará en el widget lateral del inicio. Solo puede haber uno activo.</p>
+                </div>
+
+               
+                <div class="card" style="margin-bottom:24px;" id="featuredCurrentCard">
+                    <div class="card-header">
+                        <h3>Actualmente destacado</h3>
+                    </div>
+                    <div class="card-body" id="featuredCurrentBody" style="padding:20px;">
+                        <div style="color:#94a3b8;font-size:.9rem;">Cargando...</div>
+                    </div>
+                </div>
+
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Elegir producto</h3>
+                        <input type="text" id="featuredSearch" placeholder="Buscar producto..." style="padding:7px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:.85rem;outline:none;width:200px;">
+                    </div>
+                    <div class="card-body" style="padding:20px;">
+                        <div id="featuredGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;">
+                            <div style="color:#94a3b8;font-size:.9rem;">Cargando productos...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </div>
 
@@ -701,8 +779,8 @@
     const SUPABASE_KEY = 'sb_publishable_djzazyfgAB5aqRC6J5N9Kg_XDskw04Y';
     var supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    
-    var pageTitles = { dashboard:'Dashboard', products:'Gestión de Productos', carousel:'Carrusel de Banners', offers:'Ofertas' };
+   
+    var pageTitles = { dashboard:'Dashboard', products:'Gestión de Productos', carousel:'Carrusel de Banners', offers:'Ofertas', featured:'Producto del Día' };
 
     function showPage(page) {
         document.querySelectorAll('.sidebar-nav a').forEach(function(el) { el.classList.remove('active'); });
@@ -716,10 +794,115 @@
     window.showPage = showPage;
 
     document.querySelectorAll('.sidebar-nav a[data-page]').forEach(function(el) {
-        el.addEventListener('click', function(e) { e.preventDefault(); showPage(this.getAttribute('data-page')); });
+        el.addEventListener('click', function(e) {
+            e.preventDefault();
+            var page = this.getAttribute('data-page');
+            showPage(page);
+            if (page === 'featured') loadFeatured();
+        });
     });
 
     
+    var featuredAllProducts = [];
+    var featuredCurrentId   = null;
+
+    async function loadFeatured() {
+        
+        var resp = await supabase.from('productos').select('id,name,category,price,image');
+        if (resp.error) return;
+        featuredAllProducts = resp.data || [];
+
+        
+        var cur = await supabase.from('banners').select('*').eq('id', 'producto_dia').maybeSingle();
+        featuredCurrentId = cur.data ? cur.data.link : null;
+
+        renderFeaturedCurrent(cur.data);
+        renderFeaturedGrid(featuredAllProducts);
+
+       
+        document.getElementById('featuredSearch').oninput = function() {
+            var q = this.value.toLowerCase();
+            var filtered = featuredAllProducts.filter(function(p) {
+                return p.name.toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q);
+            });
+            renderFeaturedGrid(filtered);
+        };
+    }
+
+    function renderFeaturedCurrent(banner) {
+        var body = document.getElementById('featuredCurrentBody');
+        if (!banner) {
+            body.innerHTML = '<div style="color:#94a3b8;font-size:.88rem;padding:4px 0;">Ningún producto seleccionado aún.</div>';
+            return;
+        }
+        
+        var prodId = banner.link;
+        var prod = featuredAllProducts.find(function(p) { return p.id === prodId; });
+        if (!prod) {
+            body.innerHTML = '<div style="color:#94a3b8;font-size:.88rem;">Producto no encontrado.</div>';
+            return;
+        }
+        body.innerHTML =
+            '<div class="featured-current-inner">' +
+                '<div class="featured-current-img">' +
+                    (prod.image ? '<img src="' + prod.image + '" alt="' + prod.name + '">' :
+                    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>') +
+                '</div>' +
+                '<div class="featured-current-info">' +
+                    '<div class="featured-current-name">' + prod.name + '</div>' +
+                    '<div class="featured-current-price">$' + Number(prod.price).toFixed(2) + '</div>' +
+                    '<div style="font-size:.75rem;color:#94a3b8;margin-top:2px;">' + (prod.category||'') + '</div>' +
+                '</div>' +
+                '<button class="featured-clear-btn" onclick="clearFeatured()">Quitar</button>' +
+            '</div>';
+    }
+
+    function renderFeaturedGrid(products) {
+        var grid = document.getElementById('featuredGrid');
+        if (!products.length) {
+            grid.innerHTML = '<div style="color:#94a3b8;font-size:.88rem;">Sin resultados.</div>';
+            return;
+        }
+        grid.innerHTML = products.map(function(p) {
+            var sel = p.id === featuredCurrentId ? ' selected' : '';
+            return '<div class="featured-item' + sel + '" onclick="selectFeatured(\'' + p.id + '\')">' +
+                '<div class="featured-item-img">' +
+                    (p.image ? '<img src="' + p.image + '" alt="' + p.name + '">' :
+                    '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>') +
+                '</div>' +
+                '<div class="featured-item-cat">' + (p.category||'') + '</div>' +
+                '<div class="featured-item-name">' + p.name + '</div>' +
+                '<div class="featured-item-price">$' + Number(p.price).toFixed(2) + '</div>' +
+            '</div>';
+        }).join('');
+    }
+
+    window.selectFeatured = async function(prodId) {
+        var prod = featuredAllProducts.find(function(p) { return p.id === prodId; });
+        if (!prod) return;
+        var resp = await supabase.from('banners').upsert({
+            id: 'producto_dia',
+            image: prod.image || '',
+            link: prod.id,
+            text: prod.name,
+            fit: 'cover', bg_color: '', text_position: '', order: -1
+        });
+        if (resp.error) { alert('Error: ' + resp.error.message); return; }
+        featuredCurrentId = prodId;
+        renderFeaturedCurrent({ link: prodId });
+        renderFeaturedGrid(featuredAllProducts);
+        showToast('✅ Producto del día actualizado');
+    };
+
+    window.clearFeatured = async function() {
+        await supabase.from('banners').delete().eq('id', 'producto_dia');
+        featuredCurrentId = null;
+        renderFeaturedCurrent(null);
+        renderFeaturedGrid(featuredAllProducts);
+        showToast('Producto del día quitado');
+    };
+
+   
     function loadDashboard() {
         supabase.from('productos').select('id').then(function(r) {
             if (!r.error) document.getElementById('dashProdCount').textContent = (r.data||[]).length;
@@ -727,12 +910,12 @@
         supabase.from('ofertas').select('id').then(function(r) {
             if (!r.error) document.getElementById('dashOfferCount').textContent = (r.data||[]).length;
         });
-        supabase.from('banners').select('id').then(function(r) {
+        supabase.from('banners').select('id').neq('id', 'producto_dia').then(function(r) {
             if (!r.error) document.getElementById('dashBannerCount').textContent = (r.data||[]).length;
         });
     }
 
-   
+    
     function loadProducts() {
         supabase.from('productos').select('*').then(function(resp) {
             var tbody = document.getElementById('productsTableBody');
@@ -826,7 +1009,7 @@
             return inp.files && inp.files[0] ? inp.files[0] : null;
         });
 
-        
+       
         function processExtras(index, results) {
             if (index === 3) {
                 
@@ -1007,7 +1190,7 @@
     }
     window.calcFromPrice = calcFromPrice;
 
-   
+    
     function calcFromPercent() {
         var orig = parseFloat(document.getElementById('offerOriginal').value) || 0;
         var pct  = parseFloat(document.getElementById('offerDiscount').value) || 0;
@@ -1143,7 +1326,7 @@
     window.bpSelect = bpSelect;
 
     function loadBanners() {
-        supabase.from('banners').select('*').then(function(resp) {
+        supabase.from('banners').select('*').neq('id', 'producto_dia').then(function(resp) {
             var tbody = document.getElementById('bannersTableBody');
             if (resp.error || !resp.data || !resp.data.length) {
                 tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:32px">No hay banners aún.</td></tr>';
